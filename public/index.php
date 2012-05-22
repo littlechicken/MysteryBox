@@ -1,5 +1,5 @@
 <?php
 
-echo("Mysterybox is here! ;)");
+echo "Mysterybox is here! ;)";
 
 ?> 

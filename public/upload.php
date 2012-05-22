@@ -13,3 +13,4 @@ if (is_uploaded_file($_FILES["fieldname"]["tmp_name"])) {
 		"s3://mysterybox_bucket/" . $_FILES["fieldname"]["name"],
 		$context);
 }
+?>

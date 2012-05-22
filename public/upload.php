@@ -1,11 +1,20 @@
 <?php
 
+	if(isset($_FILES['theFile']))
+	{
+	    echo "Success!";
+	}
+	else
+	{
+	    echo "Failed!";
+	}
+
 	s3 = Services_Amazon_S3::getAccount("AKIAJZPI6TYUPBP73PXQ", "FUkx02+w97CjK6oWy36iUy4bqVcpU4YubzGBvIFZ");
 	bucket = $s3->getBucket("mysterybox_bucket");
-	object = $bucket->getObject($_FILES["fieldname"]["name"]);
+	object = $bucket->getObject($_FILES["theFile"]["name"]);
 	object->acl = "public-read";
-	object->contentType = $_FILES["fieldname"]["type"];
-	object->data = file_get_contents($_FILES["fieldname"]["tmp_name"]);
+	object->contentType = $_FILES["theFile"]["type"];
+	object->data = file_get_contents($_FILES["theFile"]["tmp_name"]);
 	object->save();
 
 /*if (is_uploaded_file($_FILES["fieldname"]["tmp_name"])) {

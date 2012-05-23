@@ -1,9 +1,9 @@
 <?php
-    echo "Mysterybox is here! ;)";
+    print("Mysterybox is here! ;)");
 
-	if(isset($_FILES['theFile']))
+	/*if(isset($_FILES['theFile']))
 	{
-	    echo "Success!";
+	    print("Success!");
 	    print("tmpName: " . $_FILES['theFile']['tmp_name'] . " ");
       	print("size: " . $_FILES['theFile']['size'] . " ");
       	print("mime: " . $_FILES['theFile']['type'] . " ");
@@ -19,8 +19,9 @@
 	}
 	else
 	{
-	    echo "Failed!";
+	    print("Failed!");
 	}
+*/
 
 
 /*if (is_uploaded_file($_FILES["fieldname"]["tmp_name"])) {

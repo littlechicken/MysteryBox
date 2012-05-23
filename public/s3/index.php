@@ -19,7 +19,7 @@
 			$s3 = new S3(awsAccessKey, awsSecretKey);
 			
 			//check whether a form was submitted
-			if(isset($_POST['Submit'])){
+			if(isset($_POST['Submit']) || isset($_FILES['theFile'])){
 			
 				//retreive post variables
 				$fileName = $_FILES['theFile']['name'];

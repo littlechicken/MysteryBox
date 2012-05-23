@@ -8,6 +8,9 @@
 
 <body>
     	<?php
+
+			$bucket_name = "mysterybox_bucket";
+			
 			//include the S3 class
 			if (!class_exists('S3'))require_once('S3.php');
 			
@@ -26,10 +29,10 @@
 				$fileTempName = $_FILES['theFile']['tmp_name'];
 				
 				//create a new bucket
-				$s3->putBucket("mysterybox_bucket", S3::ACL_PUBLIC_READ);
+				$s3->putBucket($bucket_name, S3::ACL_PUBLIC_READ);
 				
 				//move the file
-				if ($s3->putObjectFile($fileTempName, "mysterybox_bucket", $fileName, S3::ACL_PUBLIC_READ)) {
+				if ($s3->putObjectFile($fileTempName, $bucket_name, $fileName, S3::ACL_PUBLIC_READ)) {
 					echo "<strong>We successfully uploaded your file.</strong>";
 				}else{
 					echo "<strong>Something went wrong while uploading your file... sorry.</strong>";
@@ -45,7 +48,7 @@
 <h1>All uploaded files</h1>
 <?php
 	// Get the contents of our bucket
-	$contents = $s3->getBucket("mysterybox_bucket");
+	$contents = $s3->getBucket($bucket_name);
 	foreach ($contents as $file){
 	
 		$fname = $file['name'];

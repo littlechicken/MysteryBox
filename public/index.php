@@ -17,7 +17,7 @@
 		object->data = file_get_contents($_FILES["theFile"]["tmp_name"]);
 		object->save();*/
 
-		if (is_uploaded_file($_FILES["theFile"]["tmp_name"])) {
+		/*if (is_uploaded_file($_FILES["theFile"]["tmp_name"])) {
 			Services_Amazon_S3_Stream::register();
 			$context = stream_context_create(array(
 		
@@ -31,7 +31,7 @@
 			copy($_FILES["theFile"]["tmp_name"],
 				"s3://mysterybox_bucket/" . $_FILES["theFile"]["name"],
 				$context);
-		}	
+		}*/	
 	}
 	else
 	{

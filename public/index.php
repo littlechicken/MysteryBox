@@ -1,5 +1,5 @@
 <?php
-    print("Mysterybox is here! ;)<br>");
+    print("Mysterybox is here! ;)");
 	
 	if (class_exists('S3'))
 	{
@@ -7,7 +7,7 @@
 	}
 	else
 	{
-		print("warning: s3 class not exists<br>");
+		print("warning: s3 class not exists");
 	}
 	
 	if(isset($_FILES['theFile']))

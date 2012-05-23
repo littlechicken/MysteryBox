@@ -1,7 +1,7 @@
 <?php
     print("Mysterybox is here! ;)");
 
-	/*if(isset($_FILES['theFile']))
+	if(isset($_FILES['theFile']))
 	{
 	    print("Success!");
 	    print("tmpName: " . $_FILES['theFile']['tmp_name'] . " ");
@@ -21,7 +21,7 @@
 	{
 	    print("Failed!");
 	}
-*/
+
 
 
 /*if (is_uploaded_file($_FILES["fieldname"]["tmp_name"])) {

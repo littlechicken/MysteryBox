@@ -8,36 +8,21 @@
 
 <body>
     	<?php
+			if (!class_exists('MS3'))require_once('ms3.php');	
+			$ms3 = new MS3();
 
-			$bucket_name = "mysterybox_bucket";
-			
-			//include the S3 class
-			if (!class_exists('S3'))require_once('S3.php');
-			
-			//AWS access info
-			if (!defined('awsAccessKey')) define('awsAccessKey', 'AKIAJZPI6TYUPBP73PXQ');
-			if (!defined('awsSecretKey')) define('awsSecretKey', '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');
-			
-			//instantiate the class
-			$s3 = new S3(awsAccessKey, awsSecretKey);
-			
-			//check whether a form was submitted
-			if(isset($_POST['Submit']) || isset($_FILES['theFile'])){
-			
-				//retreive post variables
+			if(isset($_POST['Submit'])) {
+				
 				$fileName = $_FILES['theFile']['name'];
 				$fileTempName = $_FILES['theFile']['tmp_name'];
-				
-				//create a new bucket
-				$s3->putBucket($bucket_name, S3::ACL_PUBLIC_READ);
-				
-				//move the file
-				if ($s3->putObjectFile($fileTempName, $bucket_name, $fileName, S3::ACL_PUBLIC_READ)) {
+
+				if ($ms3->putFileToAmazon($fileTempName, $fileName)) {
 					echo "<strong>We successfully uploaded your file.</strong>";
 				}else{
 					echo "<strong>Something went wrong while uploading your file... sorry.</strong>";
 				}
 			}
+
 		?>
 <h1>Upload a file</h1>
 <p>Please select a file by clicking the 'Browse' button and press 'Upload' to start uploading your file.</p>
@@ -47,6 +32,8 @@
 	</form>
 <h1>All uploaded files</h1>
 <?php
+
+	$ms3->showAmazonFiles();
 	// Get the contents of our bucket
 	$contents = $s3->getBucket($bucket_name);
 	foreach ($contents as $file){

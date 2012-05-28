@@ -7,6 +7,12 @@
 
 <body>
     	<?php
+    		require_once 'Credentials.php';
+    	
+    		$creds = new Credentials;
+    		$s3 = new Zend_Service_Amazon_S3($creds->getCredential('amazon', 'accessKey'),
+    			$creds->getCredential('amazon', 'secretKey'));
+    	    	
 			//include the S3 class
 			if (!class_exists('MysteryBoxS3'))require_once('MysteryBoxS3.php');
 			

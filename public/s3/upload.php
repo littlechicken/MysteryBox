@@ -1,28 +1,39 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>S3 test upload</title>
+        <title>S3 tutorial</title>
         <link href="style.css" rel="stylesheet" type="text/css">
     </head>
 
 <body>
     	<?php
-			if (!class_exists('MS3'))require_once('ms3.php');	
-			$ms3 = new MS3();
-
-			if(isset($_POST['Submit'])) {
-				
+			//include the S3 class
+			if (!class_exists('MysteryBoxS3'))require_once('MysteryBoxS3.php');
+			
+			//AWS access info
+			if (!defined('awsAccessKey')) define('awsAccessKey', 'AKIAJZPI6TYUPBP73PXQ');
+			if (!defined('awsSecretKey')) define('awsSecretKey', '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');
+			
+			//instantiate the class
+			$s3 = new MysteryBoxS3(awsAccessKey, awsSecretKey);
+			
+			//check whether a form was submitted
+			if(isset($_POST['Submit'])){
+			
+				//retreive post variables
 				$fileName = $_FILES['theFile']['name'];
 				$fileTempName = $_FILES['theFile']['tmp_name'];
-
-				if ($ms3->putFileToAmazon($fileTempName, $fileName)) {
+				
+				//create a new bucket
+				$s3->putBucket("mysterybox_bucket", MysteryBoxS3::ACL_PUBLIC_READ);
+				
+				//move the file
+				if ($s3->putObjectFile($fileTempName, "mysterybox_bucket", $fileName, MysteryBoxS3::ACL_PUBLIC_READ)) {
 					echo "<strong>We successfully uploaded your file.</strong>";
 				}else{
 					echo "<strong>Something went wrong while uploading your file... sorry.</strong>";
 				}
 			}
-
 		?>
 <h1>Upload a file</h1>
 <p>Please select a file by clicking the 'Browse' button and press 'Upload' to start uploading your file.</p>
@@ -32,10 +43,8 @@
 	</form>
 <h1>All uploaded files</h1>
 <?php
-
-	$ms3->showAmazonFiles();
 	// Get the contents of our bucket
-	$contents = $s3->getBucket($bucket_name);
+	$contents = $s3->getBucket("mysterybox_bucket");
 	foreach ($contents as $file){
 	
 		$fname = $file['name'];

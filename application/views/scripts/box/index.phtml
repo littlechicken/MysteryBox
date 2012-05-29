@@ -1,0 +1,17 @@
+    <!-- application/views/scripts/guestbook/index.phtml -->
+     
+    <p><a href="<?php echo $this->url(
+        array(
+            'controller' => 'box',
+            'action'     => 'add'
+        ),
+        'default',
+        true) ?>">Add Box</a></p>
+     
+    Box Entries: <br />
+    <dl>
+        <?php foreach ($this->entries as $entry): ?>
+        <dt><?php echo $this->escape($entry->email) ?></dt>
+        <dd><?php echo $this->escape($entry->comment) ?></dd>
+        <?php endforeach ?>
+    </dl>

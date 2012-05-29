@@ -1,0 +1,24 @@
+    <!-- application/layouts/scripts/layout.phtml -->
+    <?php echo $this->doctype() ?>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+      <title>Zend Framework Quickstart Application</title>
+      <?php echo $this->headLink()->appendStylesheet('/css/global.css') ?>
+    </head>
+    <body>
+    <div id="header" style="background-color: #EEEEEE; height: 30px;">
+        <div id="header-logo" style="float: left">
+            <b>MysteryBox Application</b>
+        </div>
+        <div id="header-navigation" style="float: right"> 
+            <a href="<?php echo $this->url(
+                array('controller'=>'box'),
+                'default',
+                true) ?>">Boxes Viewer</a>
+        </div>
+    </div>
+     
+    <?php echo $this->layout()->content ?>
+     
+    </body>
+    </html>

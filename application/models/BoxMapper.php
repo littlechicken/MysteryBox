@@ -24,17 +24,23 @@ class Application_Model_BoxMapper
     }
  
     private function saveToAmazon(Application_Model_Box $box) {
-    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
-    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
-    	$rootBucket = $config->rootBucket;
-    
-    	if (!$s3->isBucketAvailable($rootBucket));
-    	$s3->createBucket($rootBucket);
-    
-    	$data = base64_decode($box->getFileContent());
-    	$fullAmazonFilePath = $rootBucket. ".s3.amazonaws.com/" . $box->getFileName();
-    	$s3->putObject($fullAmazonFilePath, $data, array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ));
-    	return $fullAmazonFilePath;
+    	try
+    	{
+	    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
+	    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
+	    	$rootBucket = $config->rootBucket;
+	    
+	    	if (!$s3->isBucketAvailable($rootBucket));
+	    	$s3->createBucket($rootBucket);
+	    
+	    	$data = base64_decode($box->getFileContent());
+	    	$fullAmazonFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getFileName();
+	    	$s3->putObject($fullAmazonFilePath, $data, array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ));
+	    	
+    		return $fullAmazonFilePath;
+    	} catch(Exception $ex) {
+    		print_r($ex->getMessage());
+    	}
     }
     
     private function getParsedUnlockDate($box) {

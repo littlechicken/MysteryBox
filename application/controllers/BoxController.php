@@ -55,9 +55,9 @@ class BoxController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             	$this->sendFilesToAmazon();
 	            
-            	echo 'file was sended';            	            	
+            	echo 'file was uploaded';            	            	
                 
-                return $this->_helper->redirector('index');
+                //return $this->_helper->redirector('index');
         }
  
         $this->view->form = $form;

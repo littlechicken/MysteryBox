@@ -14,8 +14,8 @@
     <dl>
         <?php foreach ($this->entries as $entry): ?>
 		<dt>
-		
-			<a href='<?php echo "id".$entry->id;?>'><?php echo "http://www." . $_SERVER['SERVER_NAME']. "/".$entry->id;?></a>
+			<?php $link = $_SERVER['SERVER_NAME']. "/id".$entry->id;?>
+			<a href='<?php echo $link;?>'><?php echo $link;?></a>
 			
         	
 		</dt>

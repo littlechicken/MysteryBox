@@ -31,8 +31,9 @@ class Application_Model_BoxMapper
     	if (!$s3->isBucketAvailable($rootBucket));
     	$s3->createBucket($rootBucket);
     
-    	$fullAmazonFilePath = $rootBucket . DIRECTORY_SEPARATOR . $box->getFileName();
-    	$s3->putObject($fullAmazonFilePath, $box->getFileContent());
+    	$data = base64_decode($box->getFileContent());
+    	$fullAmazonFilePath = $rootBucket. ".s3.amazonaws.com/" . $box->getFileName();
+    	$s3->putObject($fullAmazonFilePath, $data, array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ));
     	return $fullAmazonFilePath;
     }
     

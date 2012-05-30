@@ -10,7 +10,7 @@
 	        <dd>Message Body: <?php echo $this->entry->messageBody ?></dd>
 	        <dd>Riddle Question: <?php echo $this->entry->riddleQuestion ?></dd>
 	        <dd>Riddle Answer: <?php echo $this->entry->riddleAnswer ?></dd>
-	        <dd>File Name: <?php echo $this->entry->fileName ?></dd>
+	        <dd>File Name: <a href="http://<?php echo $this->entry->fileName ?>"> <?php echo $this->entry->fileName ?></a></dd>
 	        <dd>Unlock Date: <?php echo $this->entry->unlockDate ?></dd>
 	    </dl>	
     <?php } else {

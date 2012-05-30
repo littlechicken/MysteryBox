@@ -80,17 +80,12 @@ class BoxController extends Zend_Controller_Action
     public function showAction()
     {
 		$id = $this->getRequest()->getParam('id');
-		if (strcmp($id, "default") == 0)
+		if ($id != -1)
 		{ 
-			return $this->_redirect('index');
-		}
-		else {
 			$map = new Application_Model_BoxMapper();
-			$numid = str_replace("id", "", $id);
-			
 			$box = new Application_Model_Box();
-			$map->find($numid, $box);
-
+			
+			$map->find($id, $box);
 			$this->view->entry = $box;
 		}
     }

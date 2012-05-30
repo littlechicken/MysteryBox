@@ -16,12 +16,8 @@
 		<dt>
 		
 		<a href="<?php echo $this->url(
-	        array(
-	            'controller' => 'box',
-	            'action'     => 'show',
-				'id' => $entry->id
-	        ),
-	        'default',
+			array("controller" => "box", "action" => "show", 'id' => $entry->id),
+	        'id_route',
 	        true) ?>"><?php echo "http://www." . $_SERVER['SERVER_NAME']. "/".$entry->id;?></a>		
 			
         	

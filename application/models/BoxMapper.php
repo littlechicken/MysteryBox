@@ -47,21 +47,11 @@ class Application_Model_BoxMapper
     		print_r($ex->getMessage());
     	}
     }
-    
-    private function getParsedUnlockDate($box) {
-    	//$s = $box->getUnlockDate();
-    	$s = 'Y-m-d H:i:s';
-    	$result = date($s);
-    	//date_parse(s);
-    	//$new_date=date('d-m-Y', strtotime($date));
-    	//'Y-m-d H:i:s'
-    	return $result;
-    }
-    
+       
     public function save(Application_Model_Box $box)
     {
     	$fullAmazonFilePath = $this->saveToAmazon($box);
-        
+		
         $data = array(
             'deviceId'   => $box->getDeviceId(),
             'messageTitle' => $box->getMessageTitle(),
@@ -69,7 +59,7 @@ class Application_Model_BoxMapper
         	'riddleQuestion' => $box->getRiddleQuestion(),
         	'riddleAnswer' => $box->getRiddleAnswer(),
         	'fileName' => $fullAmazonFilePath,
-            'unlockDate' => date($this->getParsedUnlockDate($box)),
+            'unlockDate' => $box->getDataBaseFormatUnlockDate(),
         );
  
         if (null === ($id = $box->getId())) {

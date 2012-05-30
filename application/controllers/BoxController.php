@@ -9,7 +9,7 @@ class BoxController extends Zend_Controller_Action
         $this->view->entries = $box->fetchAll();
     }
 
-    public function sendFilesToAmazon()
+    public function processFiles()
     {
     	try
     	{    		 
@@ -29,10 +29,10 @@ class BoxController extends Zend_Controller_Action
     										<messageBody>The body</messageBody>
     										<riddleQuestion>The question</riddleQuestion>
     										<riddleAnswer>The answer</riddleAnswer>
-    										<unlockDate>The answer</unlockDate>
+    										<unlockDate>20-06-1985 17:21:15</unlockDate>
     										<file name='test.file'>asfdsafqete</file>
-    									  </box>";
-    						  */  						
+    									  </box>";*/
+    						    						
     						$box	= new Application_Model_Box();
     						$box->parseXml($data);
     						
@@ -53,7 +53,7 @@ class BoxController extends Zend_Controller_Action
         $form    = new Application_Form_BoxAdd();
  
         if ($this->getRequest()->isPost()) {
-            	$this->sendFilesToAmazon();
+            	$this->processFiles();
 	            
             	echo 'file was uploaded';            	            	
                 

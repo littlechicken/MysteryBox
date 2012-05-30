@@ -135,8 +135,6 @@ class Application_Model_Box
     	return $this->_fileContent;
     }    
 
-    //------------------------------------
-
     public function setId($id)
     {
         $this->_id = (int) $id;
@@ -146,5 +144,14 @@ class Application_Model_Box
     public function getId()
     {
         return $this->_id;
+    }
+    
+    //------------------------------------
+
+    public function getDataBaseFormatUnlockDate() {
+    	$date = new Zend_Date();
+    	$date->set($this->_unlockDate, 'dd-MM-YY HH:mm:ss');
+    	$result = $date->toString('YYYY-MM-dd HH:mm:ss');
+    	return $result;    	
     }
 }

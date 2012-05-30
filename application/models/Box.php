@@ -150,8 +150,15 @@ class Application_Model_Box
 
     public function getDataBaseFormatUnlockDate() {
     	$date = new Zend_Date();
-    	$date->set($this->_unlockDate, 'dd-MM-YY HH:mm:ss');
+    	$date->set($this->_unlockDate, 'dd-MM-YYYY HH:mm:ss');
     	$result = $date->toString('YYYY-MM-dd HH:mm:ss');
     	return $result;    	
+    }
+    
+    public function getNormalFormatUnlockDate() {
+    	$date = new Zend_Date();
+    	$date->set($this->_unlockDate, 'YYYY-MM-dd HH:mm:ss');
+    	$result = $date->toString('dd-MM-YYYY HH:mm:ss');
+    	return $result;
     }
 }

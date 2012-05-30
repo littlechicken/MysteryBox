@@ -3,15 +3,15 @@
 	<?php if ($this->entry != null ) {?>
 	    <dl>
 			<dt>
-	        	<?php echo $this->entry->id ?>
+	        	Box #<?php echo $this->entry->id ?>
 			</dt>
-	        <dd><?php echo $this->entry->deviceId ?></dd>
-	        <dd><?php echo $this->entry->messageTitle ?></dd>
-	        <dd><?php echo $this->entry->messageBody ?></dd>
-	        <dd><?php echo $this->entry->riddleQuestion ?></dd>
-	        <dd><?php echo $this->entry->riddleAnswer ?></dd>
-	        <dd><?php echo $this->entry->fileName ?></dd>
-	        <dd><?php echo $this->entry->unlockDate ?></dd>
+	        <dd>Device ID: <?php echo $this->entry->deviceId ?></dd>
+	        <dd>Message Title: <?php echo $this->entry->messageTitle ?></dd>
+	        <dd>Message Body: <?php echo $this->entry->messageBody ?></dd>
+	        <dd>Riddle Question: <?php echo $this->entry->riddleQuestion ?></dd>
+	        <dd>Riddle Answer: <?php echo $this->entry->riddleAnswer ?></dd>
+	        <dd>File Name: <?php echo $this->entry->fileName ?></dd>
+	        <dd>Unlock Date: <?php echo $this->entry->unlockDate ?></dd>
 	    </dl>	
     <?php } else {
     		echo "box not found";

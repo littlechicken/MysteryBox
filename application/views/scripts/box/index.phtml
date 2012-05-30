@@ -15,22 +15,11 @@
         <?php foreach ($this->entries as $entry): ?>
 		<dt>
 		
-		<a href="<?php echo $this->url(
-			array("controller" => "box", "action" => "show", 'id' => $entry->id),
-	        'id_route',
-	        true) ?>"><?php echo "http://www." . $_SERVER['SERVER_NAME']. "/".$entry->id;?></a>		
+			<a href="<?php echo $this->url(array("controller" => "box", "action" => "show", 'id' => $entry->id), 
+					'id_route', true) ?>">
+				<?php echo "http://www." . $_SERVER['SERVER_NAME']. "/".$entry->id;?>
+			</a>		
 			
-        	
 		</dt>
-		<?php
-			/* 
-	        <dd><?php echo $this->escape($entry->deviceId) ?></dd>
-	        <dd><?php echo $this->escape($entry->messageTitle) ?></dd>
-	        <dd><?php echo $this->escape($entry->messageBody) ?></dd>
-	        <dd><?php echo $this->escape($entry->riddleQuestion) ?></dd>
-	        <dd><?php echo $this->escape($entry->riddleAnswer) ?></dd>
-	        <dd><?php echo $this->escape($entry->fileName) ?></dd>
-	        <dd><?php echo $this->escape($entry->unlockDate) ?></dd>*/
-        ?>
         <?php endforeach ?>
     </dl>

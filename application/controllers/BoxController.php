@@ -80,8 +80,8 @@ class BoxController extends Zend_Controller_Action
     public function showAction()
     {
 		$id = $this->getRequest()->getParam('id');
-		if ($id != -1)
-		{ 
+		if ($id == -1) {
+		} else { 
 			$map = new Application_Model_BoxMapper();
 			$box = new Application_Model_Box();
 			

@@ -1,12 +1,31 @@
 <?php 
 class Application_Model_Box
 {
-    protected $_comment;
-    protected $_created;
-    protected $_email;
     protected $_id;
-    protected $_file;
+    
+    private $_deviceId;
+    private $_messageTitle;
+    private $_messageBody;
+    private $_riddleQuestion;
+    private $_riddleAnswer;
+    private $_unlockDate;
+    
+    private $_fileName;
+    private $_fileContent;    
  
+    public function parseXml($data){
+    	$box = simplexml_load_string($data);
+    
+    	$this->_deviceId = (string)$box->deviceId;
+    	$this->_messageTitle = (string)$box->messageTitle;
+    	$this->_messageBody = (string)$box->messageBody;
+    	$this->_riddleQuestion = (string)$box->riddleQuestion;
+    	$this->_riddleAnswer = (string)$box->riddleAnswer;
+    	$this->_unlockDate = (string)$box->unlockDate;
+    	$this->_fileName = (string)$box->file->attributes()->name;
+    	$this->_fileContent = (string)$box->file;
+    }
+        
     public function __construct(array $options = null)
     {
         if (is_array($options)) {
@@ -43,48 +62,81 @@ class Application_Model_Box
         }
         return $this;
     }
- 
-    public function setFile($path) {
-    	$this->_file = $path;
+
+    public function setDeviceId($value) {
+    	$this->_deviceId = (string)$value;
+    	return $this;
     }
     
-    public function getFile() {
-    	return $this->_file;
+    public function getDeviceId() {
+    	return $this->_deviceId;
+    }
+
+    public function setMessageTitle($value) {
+    	$this->_messageTitle = (string)$value;
+    	return $this;
     }
     
-    public function setComment($text)
-    {
-        $this->_comment = (string) $text;
-        return $this;
+    public function getMessageTitle() {
+    	return $this->_messageTitle;
     }
- 
-    public function getComment()
-    {
-        return $this->_comment;
+
+    public function setMessageBody($value) {
+    	$this->_messageBody = (string)$value;
+    	return $this;
     }
- 
-    public function setEmail($email)
-    {
-        $this->_email = (string) $email;
-        return $this;
+    
+    public function getMessageBody() {
+    	return $this->_messageBody;
     }
- 
-    public function getEmail()
-    {
-        return $this->_email;
+        
+    public function setRiddleQuestion($value) {
+    	$this->_riddleQuestion = $value;
+    	return $this;
     }
- 
-    public function setCreated($ts)
-    {
-        $this->_created = $ts;
-        return $this;
+    
+    public function getRiddleQuestion() {
+    	return $this->_riddleQuestion;
     }
- 
-    public function getCreated()
-    {
-        return $this->_created;
+        
+    public function setRiddleAnswer($value) {
+    	$this->_riddleAnswer = $value;
+    	return $this;
     }
- 
+    
+    public function getRiddleAnswer() {
+    	return $this->_riddleAnswer;
+    }
+        
+    public function setUnlockDate($value) {
+    	$this->_unlockDate = $value;
+    	return $this;
+    }
+    
+    public function getUnlockDate() {
+    	return $this->_unlockDate;
+    }
+        
+    public function setFileName($value) {
+    	$this->_fileName = $value;
+    	return $this;
+    }
+    
+    public function getFileName() {
+    	return $this->_fileName;
+    }
+    
+    public function setFileContent($value) {
+    	$this->_fileContent = $value;
+    	return $this;
+    }
+    
+    public function getFileContent() {
+    	return $this->_fileContent;
+    }    
+
+    //------------------------------------
+
     public function setId($id)
     {
         $this->_id = (int) $id;

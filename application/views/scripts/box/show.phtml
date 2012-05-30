@@ -1,0 +1,20 @@
+<br /><br />
+<div id="view-content">	
+	<?php if ($this->entry != null ) {?>
+	    <dl>
+			<dt>
+	        	<?php echo $this->entry->id ?>
+			</dt>
+	        <dd><?php echo $this->entry->deviceId ?></dd>
+	        <dd><?php echo $this->entry->messageTitle ?></dd>
+	        <dd><?php echo $this->entry->messageBody ?></dd>
+	        <dd><?php echo $this->entry->riddleQuestion ?></dd>
+	        <dd><?php echo $this->entry->riddleAnswer ?></dd>
+	        <dd><?php echo $this->entry->fileName ?></dd>
+	        <dd><?php echo $this->entry->unlockDate ?></dd>
+	    </dl>	
+    <?php } else {
+    		echo "box not found";
+    	  }
+    	 ?>
+</div>

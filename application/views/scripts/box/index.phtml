@@ -15,8 +15,7 @@
         <?php foreach ($this->entries as $entry): ?>
 		<dt>
 			<?php $link = $_SERVER['SERVER_NAME']. "/id".$entry->id;?>
-			<a href='<?php echo $link;?>'><?php echo $link;?></a>
-			
+			<a href="<?php echo $this->url(array('controller'=>'box','action '=>'show','id'=>$entry->id ) );?>"> <?php $link; ?></a>
         	
 		</dt>
 		<?php

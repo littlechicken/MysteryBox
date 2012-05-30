@@ -34,10 +34,15 @@ class Application_Model_BoxMapper
 	    	$s3->createBucket($rootBucket);
 	    
 	    	$data = base64_decode($box->getFileContent());
-	    	$fullAmazonFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getFileName();
-	    	$s3->putObject($fullAmazonFilePath, $data, array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ));
 	    	
-    		return $fullAmazonFilePath;
+	    	$permissions = array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ);
+	    	$amazonFilePath = $rootBucket . DIRECTORY_SEPARATOR . $box->getFileName();
+	    	
+	    	$s3->putObject($amazonFilePath, $data, $permissions);
+	    	
+	    	$fullRemoteFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getFileName(); 
+	    	
+    		return $fullRemoteFilePath; 
     	} catch(Exception $ex) {
     		print_r($ex->getMessage());
     	}

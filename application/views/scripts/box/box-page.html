@@ -1,0 +1,54 @@
+<!-- application/layouts/scripts/layout.phtml -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>MysteryBox - View Your Mystery</title>
+<style>
+@font-face {
+    font-family: "Throw My Hands Up in the Air";
+    src: url("fonts/ThrowMyHandsUpintheAir.ttf")
+}			
+.main
+{
+	background-image:url('wood.jpg');
+}
+.postcard
+{
+	background-image:url('postcard.png');
+	margin-left: auto;
+	margin-right: auto;
+}
+.message-title-text
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 2.5em;
+}
+.message-body-text
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 1.5em;
+}
+.message-body
+{
+	padding: 0em 1.5em;
+}
+</style>
+</head>
+<body id="main">
+	<br/>
+	<table width="800" height="600" id="postcard">
+		<tr align="center">
+			<!-- TODO put message title in span -->
+			<td height="64"><span id="message-title-text">Message title</span></td>
+		</tr>
+		<tr align="center">
+			<!-- TODO put file link in src -->
+			<td height="360"><img src="everest.jpg" height="360px"/></td>
+		</tr>
+		<tr valign="top">
+			<!-- TODO put message body in span -->
+			<td height="164" class="message-body"><span class="message-body-text">Dear uncle Rob, we had a great time this weekend. Everest is really impressive it goes all way up through the clouds. The air here is so crystal clear. We miss you a lot and hope you can join us soon. Lillie and Anet</span></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -22,10 +22,16 @@
           <actionMethod actionName="change"/>
           <actionMethod actionName="show"/>
         </controllerFile>
+        <controllerFile controllerName="Viewer">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="add"/>
+          <actionMethod actionName="show"/>
+        </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Upload"/>
         <formFile formName="Box"/>
+        <formFile formName="Viewer"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -35,8 +41,11 @@
       <modelsDirectory>
         <modelFile modelName="Box"/>
         <modelFile modelName="BoxMapper"/>
+        <modelFile modelName="ViewerMapper"/>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="Viewers"/>
+        </dbTableDirectory>
       </modelsDirectory>
-      <modulesDirectory enabled="false"/>
       <viewsDirectory>
         <viewScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
@@ -61,6 +70,15 @@
             <viewScriptFile forActionName="change"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Box">
+            <viewScriptFile forActionName="show"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Viewer">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Viewer">
+            <viewScriptFile forActionName="add"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Viewer">
             <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
@@ -108,6 +126,11 @@
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="add"/>
             <testApplicationActionMethod forActionName="change"/>
+            <testApplicationActionMethod forActionName="show"/>
+          </testApplicationControllerFile>
+          <testApplicationControllerFile forControllerName="Viewer">
+            <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="add"/>
             <testApplicationActionMethod forActionName="show"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>

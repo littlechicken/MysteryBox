@@ -10,6 +10,15 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
+    	$vmap = new Application_Model_ViewerMapper();
+    	$v = new Application_Model_Viewer();
+    	
+    	$map = new Application_Model_BoxMapper();
+    	
+    	$entries   = array();
+    	$viewers = $vmap->fetchAll();
+    		
+    	$this->view->entries = $viewers;    	
     }
 
     public function exampleAction()

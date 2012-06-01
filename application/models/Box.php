@@ -3,27 +3,26 @@ class Application_Model_Box
 {
     protected $_id;
     
-    private $_deviceId;
-    private $_messageTitle;
-    private $_messageBody;
-    private $_riddleQuestion;
-    private $_riddleAnswer;
-    private $_unlockDate;
+    protected $_deviceId;
+    protected $_messageTitle;
+    protected $_messageBody;
+    protected $_riddleQuestion;
+    protected $_riddleAnswer;
+    protected $_unlockDate;
     
-    private $_fileName;
-    private $_fileContent;    
+    protected $_fileName;
+    protected $_fileContent;    
  
-    public function parseXml($data){
-    	$box = simplexml_load_string($data);
-    
-    	$this->_deviceId = (string)$box->deviceId;
-    	$this->_messageTitle = (string)$box->messageTitle;
-    	$this->_messageBody = (string)$box->messageBody;
-    	$this->_riddleQuestion = (string)$box->riddleQuestion;
-    	$this->_riddleAnswer = (string)$box->riddleAnswer;
-    	$this->_unlockDate = (string)$box->unlockDate;
-    	$this->_fileName = (string)$box->file->attributes()->name;
-    	$this->_fileContent = (string)$box->file;
+    public function parseXml($xml){    	
+    	$this->_id = (int)$xml->boxId;
+    	$this->_deviceId = (string)$xml->deviceId;
+    	$this->_messageTitle = (string)$xml->messageTitle;
+    	$this->_messageBody = (string)$xml->messageBody;
+    	$this->_riddleQuestion = (string)$xml->riddleQuestion;
+    	$this->_riddleAnswer = (string)$xml->riddleAnswer;
+    	$this->_unlockDate = (string)$xml->unlockDate;
+    	$this->_fileName = (string)$xml->file->attributes()->name;
+    	$this->_fileContent = (string)$xml->file;
     }
         
     public function __construct(array $options = null)
@@ -148,6 +147,14 @@ class Application_Model_Box
     
     //------------------------------------
 
+    public function isNotEmpty() {
+    	return ($this->_id != null);
+    }
+
+    public function isEmpty() {
+    	return ($this->_id == null);
+    }
+        
     public function getDataBaseFormatUnlockDate() {
     	$date = new Zend_Date();
     	$date->set($this->_unlockDate, 'dd-MM-YYYY HH:mm:ss');

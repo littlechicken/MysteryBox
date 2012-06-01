@@ -18,7 +18,7 @@ class Application_Model_BoxMapper
     public function getDbTable()
     {
         if (null === $this->_dbTable) {
-            $this->setDbTable('Application_Model_DbTable_Box');
+            $this->setDbTable('Application_Model_DbTable_Boxes');
         }
         return $this->_dbTable;
     }
@@ -53,6 +53,7 @@ class Application_Model_BoxMapper
     	$fullAmazonFilePath = $this->saveToAmazon($box);
 		
         $data = array(
+        	'boxId'	=> $box->getId(),
             'deviceId'   => $box->getDeviceId(),
             'messageTitle' => $box->getMessageTitle(),
         	'messageBody' => $box->getMessageBody(),
@@ -62,12 +63,7 @@ class Application_Model_BoxMapper
             'unlockDate' => $box->getDataBaseFormatUnlockDate(),
         );
  
-        if (null === ($id = $box->getId())) {
-            unset($data['id']);
-            $this->getDbTable()->insert($data);
-        } else {
-            $this->getDbTable()->update($data, array('id = ?' => $id));
-        }        
+        $this->getDbTable()->insert($data);
     }
          
     public function find($id, Application_Model_Box $box)
@@ -77,7 +73,7 @@ class Application_Model_BoxMapper
             return;
         }
         $row = $result->current();
-        $box->setId($row->id)
+        $box->setId($row->boxId)
                   ->setDeviceId($row->deviceId)
                   ->setMessageTitle($row->messageTitle)
                   ->setMessageBody($row->messageBody)
@@ -93,7 +89,7 @@ class Application_Model_BoxMapper
         $entries   = array();
         foreach ($resultSet as $row) {
             $entry = new Application_Model_Box();
-            $entry->setId($row->id)
+            $entry->setId($row->boxId)
                   ->setDeviceId($row->deviceId)
                   ->setMessageTitle($row->messageTitle)
                   ->setMessageBody($row->messageBody)

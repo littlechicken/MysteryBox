@@ -1,20 +1,57 @@
-<br /><br />
-<div id="view-content">	
-	<?php if ($this->entry != null && $this->entry->id != null) {?>
-	    <dl>
-			<dt>
-	        	Box #<?php echo $this->entry->id ?>
-			</dt>
-	        <dd>Device ID: <?php echo $this->entry->deviceId ?></dd>
-	        <dd>Message Title: <?php echo $this->entry->messageTitle ?></dd>
-	        <dd>Message Body: <?php echo $this->entry->messageBody ?></dd>
-	        <dd>Riddle Question: <?php echo $this->entry->riddleQuestion ?></dd>
-	        <dd>Riddle Answer: <?php echo $this->entry->riddleAnswer ?></dd>
-	        <dd>File Name: <a href="http://<?php echo $this->entry->fileName ?>"> <?php echo $this->entry->fileName ?></a></dd>
-	        <dd>Unlock Date: <?php echo $this->entry->getNormalFormatUnlockDate() ?></dd>
-	    </dl>	
-    <?php } else {
-    		echo "box not found";
-    	  }
-    	 ?>
+<style>
+
+	@font-face {
+	    font-family: "Throw My Hands Up in the Air";
+	    src: url("../../fonts/ThrowMyHandsUpintheAir.ttf")
+	}
+				
+	div#main
+	{
+		background-image:url('../../images/wood.jpg');
+	}
+	
+	table#postcard
+	{
+		background-image:url('../../images/postcard.png');
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	span#message-title-text
+	{
+	    font-family: "Throw My Hands Up in the Air";
+	    font-size: 2.5em;
+	}
+	
+	span#message-body-text
+	{
+	    font-family: "Throw My Hands Up in the Air";
+	    font-size: 1.5em;
+	}
+	
+	td#message-body
+	{
+		padding: 0em 1.5em;
+	}
+</style>
+
+<div id="main">
+<?php if ($this->entry != null && $this->entry->id != null) {?>
+
+<br/>
+	<table width="800" height="600" id="postcard">
+		<tr align="center">
+			<!-- TODO put message title in span -->
+			<td height="64"><span id="message-title-text"><?php echo $this->entry->messageTitle ?></span></td>
+		</tr>
+		<tr align="center">
+			<!-- TODO put file link in src -->
+			<td height="360"><img src='http://<?php echo $this->entry->fileName ?>' height="360px"/></td>
+		</tr>
+		<tr valign="top">
+			<!-- TODO put message body in span -->
+			<td height="164" id="message-body"><span id="message-body-text"><?php echo $this->entry->messageBody ?></span></td>
+		</tr>
+	</table>
+   <?php } ?>
 </div>

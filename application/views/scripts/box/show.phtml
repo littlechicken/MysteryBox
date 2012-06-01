@@ -1,13 +1,22 @@
 <style>
 
+	body {
+		margin:0;
+		padding:0;
+		height:100%;
+	}
+	
 	@font-face {
 	    font-family: "Throw My Hands Up in the Air";
 	    src: url("../../fonts/ThrowMyHandsUpintheAir.ttf")
 	}
-				
+		
 	div#main
 	{
 		background-image:url('../../images/wood.jpg');
+		height:100%;
+		width: 100%;
+		position: absolute;		
 	}
 	
 	table#postcard
@@ -36,6 +45,7 @@
 </style>
 
 <div id="main">
+
 <?php if ($this->entry != null && $this->entry->id != null) {?>
 
 <br/>

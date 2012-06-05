@@ -163,10 +163,9 @@ class BoxController extends Zend_Controller_Action
     	if ($box->isNotEmpty()) {
     		$bmap = new Application_Model_BoxMapper();
     		$bmap->delete($boxId);
-    		
-    		$viewers = $vmap->fetchByBoxId($boxId);
 
     		$vmap = new Application_Model_ViewerMapper();
+    		$viewers = $vmap->fetchByBoxId($boxId);
     		foreach($viewers as $viewer) {
     			$vmap->delete($viewer->getId());    			
     		}

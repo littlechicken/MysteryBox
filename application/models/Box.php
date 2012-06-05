@@ -147,6 +147,16 @@ class Application_Model_Box
     
     //------------------------------------
 
+    public function copyOf($box) {    	
+    	if ($this->_deviceId == null) $this->_deviceId = $box->getDeviceId();
+    	if ($this->_messageTitle == null) $this->_messageTitle = $box->getMessageTitle();
+    	if ($this->_messageBody == null) $this->_messageBody = $box->getMessageBody();
+    	if ($this->_riddleQuestion == null) $this->_riddleQuestion = $box->getRiddleQuestion();
+    	if ($this->_riddleAnswer == null) $this->_riddleAnswer = $box->getRiddleAnswer();
+    	if ($this->_unlockDate == null) $this->_unlockDate = $box->getUnlockDate();
+    	if ($this->_fileName == null) $this->_fileName = $box->getFileName();
+    }
+    
     public function isNotEmpty() {
     	return ($this->_id != null);
     }

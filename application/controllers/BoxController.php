@@ -99,46 +99,21 @@ class BoxController extends Zend_Controller_Action
     
     }
     
-    function isViewersByBoxExists($boxId) {
-    	$vmap = new Application_Model_ViewerMapper();
-    	$viewers = $vmap->fetchByBoxId($boxId);
-    	 
-    	$exists = 0;
-    	foreach($viewers as $viewer) {
-    		if (!$viewer->getIsViewed()) {
-    			$exists = 1;
-    			break;
-    		}
-    	}
-		return $exists;
-    }
-    
     function processChange($data) {
     	$xml = simplexml_load_string($data);
-    	$box = new Application_Model_Box();
+    	$newbox = new Application_Model_Box();
     	
-    	$box->parseXml($xml);
+    	$newbox->parseXml($xml);
     	$map  = new Application_Model_BoxMapper();
-    	    	
-    	$newBoxId = (string)$xml->newBoxId;
+
     	$oldBoxId = (string)$xml->oldBoxId;
 
-    	$oldBox = new Application_Model_Box();
-    	$map->find($oldBoxId, $oldBox);
-    	 
-    	if ($oldBox->isNotNull()) {
-    	 
-    		if ($this->isViewersByBoxExists($oldBoxId) == 0)
-    		{	
-		    	// if viewers is not attached remove old box and add new box
-    			$bmap = new Application_Model_BoxMapper();
-    			$bmap->delete($oldBoxId);		    	
-    		}
-	    	
-    	}
+    	$oldbox = new Application_Model_Box();
+    	$map->find($oldBoxId, $oldbox);
+
+    	$box->copyOf($oldBox);
     	
-    	// if viewers exists for old box just insert new row
-    	$map->save($box);    	    	 
+    	$map->save($box);
     }
         
     public function showAction()
@@ -176,37 +151,26 @@ class BoxController extends Zend_Controller_Action
     	}
     	 
     }
-    
+
     function processRemove($data) {
     	$xml = simplexml_load_string($data);
     	$boxId = (string)$xml->boxId;
-    	 
+    
     	$box = new Application_Model_Box();
     	$map = new Application_Model_BoxMapper();
     	$map->find($boxId, $box);
-    	 
+    
     	if ($box->isNotNull()) {
-    	
-	    	// see if box does not exists by viewers
-	    	
-	    	$vmap = new Application_Model_ViewerMapper();
-	    	$viewers = $vmap->fetchByBoxId($boxId);
-	    	
-	    	$exists = 0;
-	    	foreach($viewers as $viewer) {
-	    		if (!$viewer->getIsViewed()) {
-	    			$exists = 1;
-	    			break;
-	    		}
-	    	}
-	    	 
-	    	// delete box if it does not exists by viewers
-	    	
-	    	if ($exists == 0) {
-	    		$bmap = new Application_Model_BoxMapper();
-	    		$bmap->delete($boxId);
-	    	}
-    	}    	 
+    		$bmap = new Application_Model_BoxMapper();
+    		$bmap->delete($boxId);
+    		
+    		$viewers = $vmap->fetchByBoxId($boxId);
+
+    		$vmap = new Application_Model_ViewerMapper();
+    		foreach($viewers as $viewer) {
+    			$vmap->delete($viewer->getId());    			
+    		}
+    	}
     }
     
     public function deleteAction()

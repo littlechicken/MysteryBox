@@ -134,7 +134,11 @@ class BoxController extends Zend_Controller_Action
     			$bmap = new Application_Model_BoxMapper();
     			$bmap->delete($oldBoxId);		    	
     		}
+	    	
     	}
+    	
+    	// if viewers exists for old box just insert new row
+    	$map->save($box);    	    	 
     }
         
     public function showAction()

@@ -120,7 +120,7 @@ class BoxController extends Zend_Controller_Action
     {
     	$boxId = $this->getRequest()->getParam('boxId');
     	$viewerId = $this->getRequest()->getParam('viewerId');
-    	if ($boxId != null && $boxId != -1) {
+    	if ($boxId != null) {
     		$vmap = new Application_Model_ViewerMapper();
     			
     		$v = new Application_Model_Viewer();
@@ -160,7 +160,7 @@ class BoxController extends Zend_Controller_Action
     	$map = new Application_Model_BoxMapper();
     	$map->find($boxId, $box);
     
-    	if ($box->isNotNull()) {
+    	if ($box->isNotEmpty()) {
     		$bmap = new Application_Model_BoxMapper();
     		$bmap->delete($boxId);
     		

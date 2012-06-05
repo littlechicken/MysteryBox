@@ -13,7 +13,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
 		$router = Zend_Controller_Front::getInstance()->getRouter();
 
-		$router->addRoute("box_route", new Zend_Controller_Router_Route("/:viewerId/:boxId",
+		$router->addRoute("box_route", new Zend_Controller_Router_Route("/path/:viewerId/:boxId",
 				array("controller" => "box", "action" => "show"),
 				array('viewerId' => '.+', 'boxId' => '.+')));
 		

@@ -40,10 +40,9 @@ class BoxController extends Zend_Controller_Action
     public function addAction()
     {
         $request = $this->getRequest();
-        $form    = new Application_Form_BoxAdd();
  
         /*$test_data = "<box>
-         					<boxId>000125</boxId>
+         					<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</boxId>
         					<deviceId>000123</deviceId>
         					<messageTitle>The title</messageTitle>
         					<messageBody>The body</messageBody>
@@ -55,14 +54,9 @@ class BoxController extends Zend_Controller_Action
         $this->processData($test_data);*/
         
         if ($this->getRequest()->isPost()) {
-            	$this->processFiles();
-	            
-            	echo 'file was uploaded';            	            	
-                
-                //return $this->_helper->redirector('index');
+           	$this->processFiles();
+           	echo 'file was uploaded';            	            	
         }
- 
-        $this->view->form = $form;
     }
 
     public function changeAction()
@@ -77,8 +71,6 @@ class BoxController extends Zend_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		$this->processChangeQuery();
     	}
-    	 
-    	$this->view->form = $form;
     }
 
     public function processChangeQuery() {
@@ -120,7 +112,7 @@ class BoxController extends Zend_Controller_Action
     {
     	$boxId = $this->getRequest()->getParam('boxId');
     	$viewerId = $this->getRequest()->getParam('viewerId');
-    	if ($boxId != null) {
+    	if ($boxId != null && strpos($boxId, '-')) {
     		$vmap = new Application_Model_ViewerMapper();
     			
     		$v = new Application_Model_Viewer();
@@ -183,8 +175,6 @@ class BoxController extends Zend_Controller_Action
     	if ($this->getRequest()->isPost()) {
     		$this->processRemoveQuery();    		    		 
     	}
-    	
-    	$this->view->form = $form;
     }
 
 

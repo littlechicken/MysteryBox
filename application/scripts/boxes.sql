@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS boxes;
 
 CREATE TABLE boxes ( 
-	boxId INT, 
+	boxId VARCHAR(38) NOT NULL, 
 	deviceId TEXT NULL, 
 	messageTitle TEXT NULL, 
 	messageBody TEXT NULL, 

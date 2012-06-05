@@ -21,6 +21,7 @@
           <actionMethod actionName="add"/>
           <actionMethod actionName="change"/>
           <actionMethod actionName="show"/>
+          <actionMethod actionName="delete"/>
         </controllerFile>
         <controllerFile controllerName="Viewer">
           <actionMethod actionName="index"/>
@@ -81,6 +82,9 @@
           <viewControllerScriptsDirectory forControllerName="Viewer">
             <viewScriptFile forActionName="show"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Box">
+            <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -127,6 +131,7 @@
             <testApplicationActionMethod forActionName="add"/>
             <testApplicationActionMethod forActionName="change"/>
             <testApplicationActionMethod forActionName="show"/>
+            <testApplicationActionMethod forActionName="delete"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Viewer">
             <testApplicationActionMethod forActionName="index"/>

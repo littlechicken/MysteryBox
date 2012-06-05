@@ -14,7 +14,7 @@ class Application_Model_Box
     protected $_fileContent;    
  
     public function parseXml($xml){    	
-    	$this->_id = (int)$xml->boxId;
+    	$this->_id = (string)$xml->boxId;
     	$this->_deviceId = (string)$xml->deviceId;
     	$this->_messageTitle = (string)$xml->messageTitle;
     	$this->_messageBody = (string)$xml->messageBody;
@@ -136,7 +136,7 @@ class Application_Model_Box
 
     public function setId($id)
     {
-        $this->_id = (int) $id;
+        $this->_id = (string) $id;
         return $this;
     }
  

@@ -43,8 +43,8 @@ class Application_Model_ViewerMapper
 		}
 		$row = $result->current();
 		$v->setId($row->viewerId)
-		->setBoxId($row->boxId)
-		->setIsViewed($row->isViewed);
+		  ->setBoxId($row->boxId)
+		  ->setIsViewed($row->isViewed);
 	}
 	
 	public function fetchAll()
@@ -54,11 +54,25 @@ class Application_Model_ViewerMapper
 		foreach ($resultSet as $row) {
 			$entry = new Application_Model_Viewer();
 			$entry->setId($row->viewerId)
+				  ->setBoxId($row->boxId)
+			      ->setIsViewed($row->isViewed);
+			$entries[] = $entry;
+		}
+		return $entries;
+	}
+	
+	public function fetchByBoxId($boxId) {
+		$table = $this->getDbTable();
+		$rows = $table->fetchAll($table->select()->where('boxId = ?', $boxId));
+		$entries   = array();
+		foreach ($rows as $row) {
+			$entry = new Application_Model_Viewer();
+			$entry->setId($row->viewerId)
 			->setBoxId($row->boxId)
 			->setIsViewed($row->isViewed);
 			$entries[] = $entry;
 		}
 		return $entries;
-	}
+	}	
 }
 

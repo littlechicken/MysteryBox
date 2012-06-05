@@ -101,4 +101,12 @@ class Application_Model_BoxMapper
         }
         return $entries;
     }
+    
+    public function delete($boxId) {
+    	$table = $this->getDbTable();
+    	
+    	$where = $table->getAdapter()->quoteInto('boxId = ?', $boxId);
+    	
+    	$table->delete($where);
+    }
 }

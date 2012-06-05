@@ -7,7 +7,7 @@ class Application_Model_Viewer
 
 	public function parseXml($xml){
 		$this->_id = (string)$xml->viewerId;
-		$this->_boxId = (int)$xml->boxId;
+		$this->_boxId = (string)$xml->boxId;
 		$this->_isViewed = (boolean)$xml->isViewed;
 	}
 
@@ -49,7 +49,7 @@ class Application_Model_Viewer
 	}
 
 	public function setBoxId($value) {
-		$this->_boxId = (int)$value;
+		$this->_boxId = (string)$value;
 		return $this;
 	}
 

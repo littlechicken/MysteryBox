@@ -15,7 +15,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		$router->addRoute("box_route", new Zend_Controller_Router_Route("/:viewerId/:boxId",
 				array("controller" => "box", "action" => "show"),
-				array('viewerId' => '.+', 'boxId' => '\d+')));
+				array('viewerId' => '.+', 'boxId' => '.+')));
 		
 		/*$router->addRoute("box_route", new Zend_Controller_Router_Route("/:id",
 		 array("controller" => "box", "action" => "show"),

@@ -73,6 +73,14 @@ class Application_Model_ViewerMapper
 			$entries[] = $entry;
 		}
 		return $entries;
+	}
+
+	public function delete($viewerId) {
+		$table = $this->getDbTable();
+		 
+		$where = $table->getAdapter()->quoteInto('viewerId = ?', $viewerId);
+		 
+		$table->delete($where);
 	}	
 }
 

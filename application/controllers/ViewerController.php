@@ -20,7 +20,7 @@ class ViewerController extends Zend_Controller_Action
  
         /*$test_data = "<viewer>
 						<viewerId>dsfasdfadsf1</viewerId>
-    					<boxId>0125</boxId>
+    					<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</boxId>
     					<isViewed>1</isViewed>
     				  </viewer>";
         

@@ -62,8 +62,13 @@ class BoxController extends Zend_Controller_Action
     public function changeAction()
     {
     	/*$test_data = "<changeBox>
-    	 <oldBoxId>125</oldBoxId>
-    	 <newBoxId>125</newBoxId>
+    	 <oldBoxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</oldBoxId>
+    	 	<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf20</boxId>
+    		<deviceId>000123</deviceId>
+    		<messageTitle>New one title</messageTitle>
+    		<riddleQuestion>The question blblblblblbl</riddleQuestion>
+    		<unlockDate>20-06-1985 17:21:16</unlockDate>
+    		<file name='test.file'></file>    			
     	</changeBox>";
     	 
     	$this->processChange($test_data);*/
@@ -103,9 +108,9 @@ class BoxController extends Zend_Controller_Action
     	$oldbox = new Application_Model_Box();
     	$map->find($oldBoxId, $oldbox);
 
-    	$box->copyOf($oldBox);
+    	$newbox->copyOf($oldbox);
     	
-    	$map->save($box);
+    	$map->save($newbox);
     }
         
     public function showAction()
@@ -167,7 +172,7 @@ class BoxController extends Zend_Controller_Action
     public function deleteAction()
     {
     	/*$test_data = "<deleteBox>
-    		<boxId>125</boxId>
+    		<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</boxId>
     	</deleteBox>";
     	
     	$this->processRemove($test_data);*/

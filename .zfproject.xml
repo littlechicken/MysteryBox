@@ -10,6 +10,7 @@
       <controllersDirectory>
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="pages"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="Upload">
@@ -85,6 +86,9 @@
           <viewControllerScriptsDirectory forControllerName="Box">
             <viewScriptFile forActionName="delete"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="pages"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -121,6 +125,7 @@
         <testApplicationControllerDirectory>
           <testApplicationControllerFile forControllerName="Index">
             <testApplicationActionMethod forActionName="index"/>
+            <testApplicationActionMethod forActionName="pages"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Upload">
             <testApplicationActionMethod forActionName="index"/>

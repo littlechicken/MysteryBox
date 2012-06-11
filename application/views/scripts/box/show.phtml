@@ -122,12 +122,12 @@ div
 				{
 					$("#advertisement").jsMovie("option", "repeat", false);
 					$("#advertisement").jsMovie("playClip", 1);
-					$("form").fadeOut("fast");
+					$("form").hide();//fadeOut("fast");
 					
 					$('#advertisement').bind('ended', function(){
 						//alert("asdf");
-						$("#card").fadeIn("fast");
-						$("#question").fadeOut("fast");
+						$("#card").show();//fadeIn("fast");
+						$("#question").hide();//fadeOut("fast");
 					});
 				}
 				else

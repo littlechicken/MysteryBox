@@ -21,7 +21,7 @@
 				sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...
 				folder   : "../../images/seq/",       //this is the path where the script can find the image sequence
 				from     : 0,               //the #### will start to replace with 0001
-				to       : 49,              //the #### will start to replace with 0040
+				to       : 50,              //the #### will start to replace with 0040
 				width    : 640,             //the advertisement container will be resized to a width of 320px
 				height   : 480,             //the advertisement container will be resized to a height of 150px
 				showPreLoader : true,       //we do want to see a preloader animation
@@ -38,12 +38,12 @@
 			<?php }?>
 						
 			$('#advertisement').bind("playing",function(){
-				$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/49"); 
+				$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/50"); 
 			});			
 			// make frame 1 to frame 20 to a clip an call it Hello. Pause the animation for 2 seconds before the next clip is being played
-			$('#advertisement').jsMovie("addClip","Idle",1,10,2000);
-			$('#advertisement').jsMovie("addClip","Open",11,35,2000);
-			$('#advertisement').jsMovie("addClip","Close",36,49,2000);
+			$('#advertisement').jsMovie("addClip","Idle",1,15,2000);
+			$('#advertisement').jsMovie("addClip","Open",16,40,2000);
+			$('#advertisement').jsMovie("addClip","Close",41,50,2000);
 			// play both the clips
 			$('#advertisement').jsMovie("playClip", 0);
 

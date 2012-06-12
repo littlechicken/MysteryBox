@@ -1,60 +1,27 @@
-<style type="text/css">
-@font-face {
-    font-family: "Throw My Hands Up in the Air";
-    src: url("../../fonts/ThrowMyHandsUpintheAir.ttf")
-}		
-div 
-{
-	width: 640px;
-	margin: 0 auto;
-}
-.main
-{
-	background-image:url('../../images/cork.jpg');
-}
-.jsmovie-frame
-{
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+<link rel="icon" type="image/png" href="../../images/icon.png" />
 
-}
-.question-text
-{
-    font-family: "Throw My Hands Up in the Air";
-    font-size: 2em;
-}
+<div id="logo">
+	<a href="http://mysterybox.orchestra.io/index/pages"><img src="../../images/logo.png" alt="" /></a>
+</div>
 
-.postcard
-{
-	background-image:url('../../images/postcard.png');
-	position: fixed;
-	top: 0;
-	z-index: 1000;
-	margin-top: 30px;
-}
-.message-title-text
-{
-    font-family: "Throw My Hands Up in the Air";
-    font-size: 2em;
-}
-.message-body-text
-{
-    font-family: "Throw My Hands Up in the Air";
-    font-size: 1.2em;
-}
-.message-body
-{
-	padding: 0em 1.5em;
-}
-</style>
-    <script type="text/javascript" src="../../js/jquery-1.6.1.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.jsmovie.1.4.1.min.js" ></script>
+<script type="text/javascript" src="../../js/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="../../js/jquery.jsmovie.1.4.1.min.js" ></script>
 
 	<script>
+		jQuery.preloadImages = function () {
+		    var images = (typeof arguments[0] == 'object') ? arguments[0] : arguments;
+		    for (var i = 0; i < images.length; i++) {
+		        jQuery("<img>").attr("src", images[i]);
+		    }
+		};
+			
 		$(document).ready(function(){
 			$('#advertisement').jsMovie({
 				sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...
 				folder   : "../../images/seq/",       //this is the path where the script can find the image sequence
 				from     : 0,               //the #### will start to replace with 0001
-				to       : 35,              //the #### will start to replace with 0040
+				to       : 49,              //the #### will start to replace with 0040
 				width    : 640,             //the advertisement container will be resized to a width of 320px
 				height   : 480,             //the advertisement container will be resized to a height of 150px
 				showPreLoader : true,       //we do want to see a preloader animation
@@ -63,32 +30,41 @@ div
 				// it is a 4x4 image matrix with each image of 40px by 40px
 				loader   : {path:"../../images/loader.png",height:40,width:40,rows:4,columns:4},
 				fps: 10
-				
-				
 			});
-			
+
+			$.preloadImages("../../images/postcard.png");
+			<?php if ($this->entry != null && $this->entry->id != null) {?>
+				$.preloadImages("<?php echo $this->entry->fileName ?>");
+			<?php }?>
+						
 			$('#advertisement').bind("playing",function(){
-				$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/36"); 
+				$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/49"); 
 			});			
 			// make frame 1 to frame 20 to a clip an call it Hello. Pause the animation for 2 seconds before the next clip is being played
 			$('#advertisement').jsMovie("addClip","Idle",1,10,2000);
 			$('#advertisement').jsMovie("addClip","Open",11,35,2000);
-			//$('#advertisement').jsMovie("addClip","Close",30,49,2000);
+			$('#advertisement').jsMovie("addClip","Close",36,49,2000);
 			// play both the clips
 			$('#advertisement').jsMovie("playClip", 0);
 
 		});	
 	</script>	
-</head>
-<body class="main">
+
+<div class="table-ornament-top">
+</div>
+
+<div class="table">	
 	<br/>
 <?php if ($this->entry != null && $this->entry->id != null) {?>	
+	
 	<div id="question">
+	<center>
 		<div id="advertisement">
 		<!-- div id="framedisplay">0/48</div><span>0..10-idle; 10..29-open; 29..48-close </span-->
 		</div>
-		
+	</center>		
 	</div>
+	
 	<div id="card" style="display: none">
 		<table width="640" height="480" class="postcard">
 			<tr align="center">
@@ -104,30 +80,45 @@ div
 				<td height="128" class="message-body"><span class="message-body-text"><?php echo $this->entry->messageBody ?></span></td>
 			</tr>
 		</table>
+		
+		<center><button id="close" class="input-button" >Close</button></center>
 	</div>
-	
-	<form action="" method="post">
-		<p class="question-text" align="center"><?php echo $this->entry->riddleQuestion ?></p>
-		<center><input type="text" name="name" id="name" placeholder="Enter value" value="" /></center>
-		<br/>
-		<center><button type="submit" id="submit">Submit</button></center>
-		<br/>
-		<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
-	</form>
+
+	<div class="row" id="question-area">		
+		<form action="" method="post">
+			<p class="question-text" align="center"><?php echo $this->entry->riddleQuestion ?></p>
+			<center><input type="text" name="name" id="name" placeholder="Enter value" value="" /></center>
+			<br/>
+			<center><button type="submit" id="submit" class="input-button">RIGHT!</button></center>
+			<br/>
+			<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
+		</form>
 	
 		<script>
-			$("button").click(function() {
+			$("#close").click(function() {
+				$("#card").hide();
+				$("#question").show();
+				$('#advertisement').unbind("ended");
+				$("#advertisement").jsMovie("playClip", 2);
+				$('#advertisement').bind("ended", function(){
+					$("form").show();
+					$("#advertisement").jsMovie("option", "repeat", true);
+					$("#advertisement").jsMovie("playClip", 0);
+				});
+			});
+		
+			$("#submit").click(function() {
 				$("#error").hide();
 				if ($("#name").val().toLowerCase() == "<?php echo $this->entry->riddleAnswer ?>".toLowerCase())
 				{
 					$("#advertisement").jsMovie("option", "repeat", false);
 					$("#advertisement").jsMovie("playClip", 1);
-					$("form").hide();//fadeOut("fast");
-					
-					$('#advertisement').bind('ended', function(){
-						//alert("asdf");
-						$("#card").show();//fadeIn("fast");
-						$("#question").hide();//fadeOut("fast");
+					$("form").hide();
+					$('#advertisement').unbind("ended");
+					$('#advertisement').bind("ended", function(){
+						//alert("asdf");						
+						$("#question").hide();
+						$("#card").show();
 					});
 				}
 				else
@@ -136,6 +127,19 @@ div
 				}
 				
 				return false;
-			});
+			});			
 		</script>
-<?php } ?>			
+	</div>
+	
+<?php } ?>		
+
+
+</div>
+
+<div class="table-ornament-bottom">
+</div>
+<!-- Keep background behind content -->
+<div id="background">
+    <img src="../../images/background.png" class="stretch" alt="" />
+</div>
+

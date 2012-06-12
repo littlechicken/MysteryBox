@@ -1,4 +1,4 @@
-<style>
+<?php /*<style>
 
 	a:link,
 	a:visited
@@ -59,4 +59,42 @@
         <?php endforeach ?>
     </dl>
 </td></tr></table>    
+</div>*/
+?>
+
+<link rel="stylesheet" type="text/css" href="../../css/global.css" />
+<link rel="icon" type="image/png" href="../../images/icon.png" />
+
+<div id="logo">
+	<a href="http://mysterybox.orchestra.io/index/pages"><img src="../../images/logo.png" alt="" /></a>
+</div>
+<div class="table-ornament-top">
+</div>
+<div class="table">
+	<div class="row">
+        <?php foreach ($this->entries as $viewer): ?>
+			<?php 
+			$boxId = $viewer->getBoxId();
+			$viewerId = $viewer->getId();
+			$map = new Application_Model_BoxMapper();
+			$box = new Application_Model_Box();
+				
+			$map->find($boxId, $box);
+
+			if ($box->isEmpty()) continue;
+			?>
+			<p>
+				<a href="<?php echo $this->url(array('viewerId' => $viewerId, 'boxId' => $boxId), 'box_route', true) ?>">
+					<?php echo "http://www." . $_SERVER['SERVER_NAME']. "/path/".$viewerId."/".$boxId;?>
+				</a>
+			</p>		
+			
+        <?php endforeach ?>	
+	</div>
+</div>
+<div class="table-ornament-bottom">
+</div>
+<!-- Keep background behind content -->
+<div id="background">
+    <img src="../../images/background.png" class="stretch" alt="" />
 </div>

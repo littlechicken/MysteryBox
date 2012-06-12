@@ -1,0 +1,112 @@
+<style type="text/css">
+.empty-class {}
+#background
+{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+.stretch
+{
+    width:100%;
+    height:100%;
+}
+#logo
+{
+	width:720px;
+	margin:auto;
+	text-align:center;
+	padding-top:12px;
+	padding-bottom:12px;
+}
+.table-ornament-top
+{
+	background-image:url('../images/frame-top.png');
+	margin:auto;
+	height:8px;
+	width:720px;
+}
+.table-ornament-bottom
+{
+	background-image:url('../images/frame-bottom.png');
+	margin:auto;
+	height:8px;
+	width:720px;
+}
+.table-separator
+{
+	background-image:url('../images/frame-separator.png');
+	margin:auto;
+	height:1px;
+	width:720px;
+}
+.table
+{
+	width:720px;
+	height:700px;
+	display:table;
+	margin:auto;
+	background-image:url('../images/frame-fill.png');
+}
+.row
+{
+	text-align:center;
+	width:720px;
+	display:table-row;
+}
+#question-area
+{
+	background-image:url('../images/question-marks.jpg');
+	background-repeat:no-repeat;
+	background-position:center;
+}
+.input-field
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 1.3em;
+    width:320px;
+    height:30px;
+	background-image:url(../images/input.png);
+	border-style:none;
+	padding-left:4px;
+	vertical-align: middle;
+}
+.input-button
+{
+	font-family: "Throw My Hands Up in the Air";
+    font-size: 1em;
+	background-image:url(../images/button.png);
+    width:79px;
+    height:30px;
+    border:none;
+    background-color:transparent;
+}
+
+@font-face {
+    font-family: "Throw My Hands Up in the Air";
+    src: url("../fonts/ThrowMyHandsUpintheAir.ttf")
+}
+.question-text
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 2em;
+}
+
+.message-title-text
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 2em;
+}
+.message-body-text
+{
+    font-family: "Throw My Hands Up in the Air";
+    font-size: 1.2em;
+}
+.message-body
+{
+padding: 0em 1.5em;
+}
+</style>

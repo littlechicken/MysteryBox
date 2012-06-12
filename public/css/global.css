@@ -107,6 +107,13 @@
 }
 .message-body
 {
-padding: 0em 1.5em;
+	padding: 0em 1.5em;
+}
+.postcard
+{
+	background-image:url('../images/postcard.png');
+	text-align:center;
+	vertical-align: middle;
+	horizontal-align: middle;
 }
 </style>

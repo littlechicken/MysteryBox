@@ -65,6 +65,7 @@
 	</center>		
 	</div>
 	
+	<center>	
 	<div id="card" style="display: none">
 		<table width="640" height="480" class="postcard">
 			<tr align="center">
@@ -83,13 +84,15 @@
 		
 		<center><button id="close" class="input-button" >Close</button></center>
 	</div>
-
+	</center>
+	
 	<div class="row" id="question-area">		
 		<form action="" method="post">
 			<p class="question-text" align="center"><?php echo $this->entry->riddleQuestion ?></p>
-			<center><input type="text" name="name" id="name" placeholder="Enter value" value="" /></center>
-			<br/>
-			<center><button type="submit" id="submit" class="input-button">RIGHT!</button></center>
+			<center>
+				<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field"/>
+				<button type="submit" id="submit" class="input-button">RIGHT!</button>
+			</center>
 			<br/>
 			<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
 		</form>
@@ -101,9 +104,11 @@
 				$('#advertisement').unbind("ended");
 				$("#advertisement").jsMovie("playClip", 2);
 				$('#advertisement').bind("ended", function(){
-					$("form").show();
-					$("#advertisement").jsMovie("option", "repeat", true);
-					$("#advertisement").jsMovie("playClip", 0);
+					//$("form").show();
+					$("#question").hide();
+					$("#advertisement").hide();
+					//$("#advertisement").jsMovie("option", "repeat", true);
+					//$("#advertisement").jsMovie("playClip", 0);
 				});
 			});
 		

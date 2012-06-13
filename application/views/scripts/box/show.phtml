@@ -59,10 +59,9 @@
 	
 	<?php 
 	
-		date_default_timezone_set("Europe/Amsterdam");
+		date_default_timezone_set('Europe/Amsterdam');
 		
-		$exp_date = "2006-01-16"; 
-		$todays_date = date("Y-m-d"); 
+		$todays_date = date('YYYY-MM-dd HH:mm:ss'); 
 		$today = strtotime($todays_date);
 		$expiration_date = strtotime($this->entry->unlockDate);
 	 

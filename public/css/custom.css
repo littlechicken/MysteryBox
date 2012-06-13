@@ -54,7 +54,7 @@
 .row
 {
 	text-align:center;
-	width:617px;
+	width:617px;	
 	display:table-row;
 }
 #question-area
@@ -79,7 +79,7 @@
 {
 	font-family: "Throw My Hands Up in the Air";
     font-size: 1em;
-	background-image:url(../images/res/button.png);
+	background-image:url(../images/button.png);
     width:89px;
     height:39px;
     border:none;

@@ -57,6 +57,26 @@
 	<br/>
 <?php if ($this->entry != null && $this->entry->id != null) {?>	
 	
+	<?php 
+	
+		$exp_date = "2006-01-16"; 
+		$todays_date = date("Y-m-d"); 
+		$today = strtotime($todays_date);
+		$expiration_date = strtotime($this->entry->unlockDate);
+	 
+		//if ($expiration_date > $today) { $valid = "yes"; } else { $valid = "no"; }	
+	?>
+	
+	<?php if ($expiration_date < $today) {?>
+
+		<div id="unlockDateMessage">
+		<center>
+		View your mystery on <?php echo $this->entry->unlockDate; ?>
+		</center>		
+		</div>
+			
+	<?php } else { ?>
+
 	<div id="question">
 	<center>
 		<div id="advertisement">
@@ -135,7 +155,8 @@
 			});			
 		</script>
 	</div>
-	
+
+	<?php } ?>		
 <?php } ?>		
 
 

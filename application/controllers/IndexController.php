@@ -10,7 +10,7 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
+    	
     }
 
     public function pagesAction()
@@ -26,8 +26,16 @@ class IndexController extends Zend_Controller_Action
     	$this->view->entries = $viewers;
     }
 
+    public function fbconAction()
+    {
+		$fb = new Facebook();
+		
+    }
+
 
 }
+
+
 
 
 

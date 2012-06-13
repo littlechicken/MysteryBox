@@ -11,6 +11,7 @@
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
           <actionMethod actionName="pages"/>
+          <actionMethod actionName="fbcon"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="Upload">
@@ -89,6 +90,9 @@
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="pages"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="fbcon"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -126,6 +130,7 @@
           <testApplicationControllerFile forControllerName="Index">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="pages"/>
+            <testApplicationActionMethod forActionName="fbcon"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Upload">
             <testApplicationActionMethod forActionName="index"/>

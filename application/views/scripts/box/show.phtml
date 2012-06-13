@@ -68,7 +68,7 @@
 		//if ($expiration_date > $today) { $valid = "yes"; } else { $valid = "no"; }	
 	?>
 	
-	<?php if ($expiration_date < $today) {?>
+	<?php if ($expiration_date > $today) {?>
 
 		<div id="unlockDateMessage">
 		<center>

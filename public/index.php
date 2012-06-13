@@ -15,8 +15,14 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 
 /** Zend_Application */
+
 require_once 'Zend/Application.php';
-require_once('Zend/Service/Amazon/S3.php');
+require_once 'Zend/Service/Amazon/S3.php';
+
+/** Facebook **/
+
+require_once 'Facebook/base_facebook.php';
+require_once 'Facebook/facebook.php';
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(

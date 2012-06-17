@@ -1,4 +1,27 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Index</b> and script/action name <b>fbcon</b></p>
+<link rel="stylesheet" type="text/css" href="../../css/base.css" />
+<link rel="icon" type="image/png" href="../../images/icon.png" />
+
+<div id="logo">
+	<a href="http://mysterybox.orchestra.io/index/pages"><img src="../../images/logo.png" alt="" /></a>
+</div>
+<div class="table-ornament-top">
+</div>
+<div class="table">
+	<div class="row">
+	<?php print_r($this->entries['data']);?>
+	<br/><br/>
+        <?php foreach ($this->entries['data'] as $friend): ?>
+			<?php 
+			$fid = $friend["id"];
+			$url = 'https://graph.facebook.com/'. $fid . '/picture?type=large';
+			?>
+			<img src="<?php echo $url ?>">						
+        <?php endforeach ?>	
+	</div>
+</div>
+<div class="table-ornament-bottom">
+</div>
+<!-- Keep background behind content -->
+<div id="background">
+    <img src="../../images/background.png" class="stretch" alt="" />
 </div>

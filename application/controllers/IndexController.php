@@ -29,7 +29,7 @@ class IndexController extends Zend_Controller_Action
     public function fbconAction()
     {
 		$client = new Facebook(array('appId'  => '344617158898614', 'secret' => '6dc8ac871858b34798bc2488200e503d'));
-		$client->setAccessToken("AAAE5bW9W87YBAHngaULSixTZB8Ms3ZBiCQhxbLfwFgA9Ku1ZCO65W2ZBvgTzkuZANmgd4fEr4ZBrKZByZAje9edXZA3leiNQhaXaf5ONoR2QvmvP4LDoqTXHd");
+		$client->setAccessToken("AAAE5bW9W87YBAPUru246fan33ZBx4aCF5PSmjm7xlt6HMAY8ZB6YubBzOleBiBDUuGcUbjsdC4B0VtWDdc8dEpZA1ims9cUw2wJplQByEbxZB0xfouWd");
 		$friends = $client->api('/me/friends');
     	
 		$this->view->entries = $friends;

@@ -188,6 +188,7 @@
 		$("#close").click(function() {
 			$("#view").hide();
 			$("#question").show();
+			$('#advertisement').show();
 			$('#advertisement').unbind("ended");
 			$("#advertisement").jsMovie("playClip", 1);
 			$('#advertisement').bind("ended", function(){

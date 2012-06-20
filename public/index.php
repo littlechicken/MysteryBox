@@ -18,7 +18,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require_once 'Versioning.php';
 
-orchestra\Versioning::set('100');
+orchestra\Versioning::version();
 
 /** Zend_Application */
 

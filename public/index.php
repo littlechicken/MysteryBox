@@ -14,6 +14,12 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
+/** Version **/
+
+require_once 'Versioning.php';
+
+orchestra\Versioning::set('100');
+
 /** Zend_Application */
 
 require_once 'Zend/Application.php';

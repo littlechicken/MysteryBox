@@ -18,7 +18,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 
 require_once 'Versioning.php';
 
-orchestra\Versioning::version();
+orchestra\Versioning::nocache();
 
 /** Zend_Application */
 

@@ -1,58 +1,205 @@
-<link rel="stylesheet" type="text/css" href="../../css/base.css" />
+<link rel="stylesheet" type="text/css" href="../../css/newlook.css" />
 <link rel="icon" type="image/png" href="../../images/icon.png" />
-
-<div id="logo">
-	<a href="http://mysterybox.orchestra.io/index/pages"><img src="../../images/logo.png" alt="" /></a>
-</div>
 
 <script type="text/javascript" src="../../js/jquery-1.6.1.min.js"></script>
 <script type="text/javascript" src="../../js/jquery.jsmovie.1.4.1.min.js" ></script>
 
-	<script>
-		jQuery.preloadImages = function () {
-		    var images = (typeof arguments[0] == 'object') ? arguments[0] : arguments;
-		    for (var i = 0; i < images.length; i++) {
-		        jQuery("<img>").attr("src", images[i]);
-		    }
-		};
-			
-		$(document).ready(function(){
-			$('#advertisement').jsMovie({
-				sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...
-				folder   : "../../images/sequ/",       //this is the path where the script can find the image sequence
-				from     : 0,               //the #### will start to replace with 0001
-				to       : 50,              //the #### will start to replace with 0040
-				width    : 640,             //the advertisement container will be resized to a width of 320px
-				height   : 480,             //the advertisement container will be resized to a height of 150px
-				showPreLoader : true,       //we do want to see a preloader animation
-				playOnLoad : false,         //we don't want to have the movie play after the images have been loaded automatically
-				// the preloader animation is located in the folder "img/loader.png"
-				// it is a 4x4 image matrix with each image of 40px by 40px
-				loader   : {path:"../../images/loader.png",height:40,width:40,rows:4,columns:4},
-				fps: 10
-			});
+<script>
+	jQuery.preloadImages = function () {
+	    var images = (typeof arguments[0] == 'object') ? arguments[0] : arguments;
+	    for (var i = 0; i < images.length; i++) {
+	        jQuery("<img>").attr("src", images[i]);
+	    }
+	};
+		
+	$(document).ready(function(){
+		$('#advertisement').jsMovie({
+			sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...
+			folder   : "../../images/sequences/",       //this is the path where the script can find the image sequence
+			from     : 1,               //the #### will start to replace with 0001
+			to       : 41,              //the #### will start to replace with 0040
+			width    : 640,             //the advertisement container will be resized to a width of 320px
+			height   : 480,             //the advertisement container will be resized to a height of 150px
+			showPreLoader : false,       //we do want to see a preloader animation
+			playOnLoad : false,         //we don't want to have the movie play after the images have been loaded automatically
+			// the preloader animation is located in the folder "img/loader.png"
+			// it is a 4x4 image matrix with each image of 40px by 40px
+			loader   : {path:"../../images/loader.png",height:40,width:40,rows:4,columns:4},
+			fps: 10
+		});
 
-			$.preloadImages("../../images/postcard.png");
-			<?php if ($this->entry != null && $this->entry->id != null) {?>
-				$.preloadImages("<?php echo $this->entry->fileName ?>");
-			<?php }?>
-						
-			$('#advertisement').bind("playing",function(){
-				$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/50"); 
+		//$.preloadImages("../../images/postcard.png");
+		<?php /*if ($this->entry != null && $this->entry->id != null) {
+			$.preloadImages("<?php echo $this->entry->fileName ?>");
+		 }*/?>
+					
+		$('#advertisement').bind("playing",function(){
+			$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/41"); 
+		});			
+		// make frame 1 to frame 20 to a clip an call it Hello. Pause the animation for 2 seconds before the next clip is being played
+		//$('#advertisement').jsMovie("addClip","Idle",1,15,2000);
+		$('#advertisement').jsMovie("addClip","Open",1,26,2000);
+		$('#advertisement').jsMovie("addClip","Close",27,41,2000);
+		// play both the clips
+		$('#advertisement').jsMovie("playClip", 0);
+
+	});	
+
+	function showQ()
+	{
+		$('#intro').hide();
+		$('#question').show();
+	}
+</script>	
+
+<div id="intro">
+	<?php
+	
+	$msg = '';
+	$imgurl = 'temp_video.png';
+	$show = 0;
+	if ($this->entry != null && $this->entry->id != null) {
+	
+		date_default_timezone_set('Europe/Amsterdam');
+		
+		$todays_date = date("Y-m-d"); 
+		$today = strtotime($todays_date);
+		$expiration_date = strtotime($this->entry->unlockDate);
+		
+		if ($expiration_date > $today) {
+			$msg = 'This box opens on' . $this->entry->unlockDate . '!';
+			$imgurl = 'box-date.png';
+		} else {
+			$show = 1;
+		}		
+	} ?>
+	
+	  <table width="1020" border="0" align="center" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <th colspan="3" scope="col"><img src="../../images/top.png" width="1020" height="12" /></th>
+	  </tr>
+	  <tr>
+	    <td width="190"><img src="../../images/left_side.png" width="190" height="480" align="baseline" /></td>
+	    <td width="640">
+			<img src="../../images/<?php echo $imgurl ?>" width="640" height="480" onclick="<?php if ($show == 1) echo 'showQ()'?>" />
+		</td>
+	    <td width="190"><img src="../../images/right_side.png" width="190" height="480" /></td>
+	  </tr>
+	  <tr>
+	    <td colspan="3"><img src="../../images/bottom.png" width="1020" height="97" /></td>
+	  </tr>	  
+	</table>
+	
+	  <?php if ($show == 0) {?>
+		<div id="unlockDateMessage">
+		<center>
+		This box opens on <?php echo $this->entry->unlockDate; ?> !
+		</center>		
+		</div>
+	  <?php }?>
+</div>	
+	
+<div id="question" style="display: none" align="center">
+	
+	<table width="1020" border="0" align="center" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <th colspan="3" scope="col"><img src="../../images/top.png" width="1020" height="12" /></th>
+	  </tr>
+	  <tr>
+	    <td width="190"><img src="../../images/left_side.png" width="190" height="480" align="baseline" /></td>
+		<td width="640">
+			<div id="advertisement" style="display: none"> </div>
+			<!-- Animation sequence must start preloading automatically, user should not see any preloader it should be invisible -->
+			<!-- Ideally only if user answered the question and preloader did not finish the loading images it must show -->
+			<img id="tempad" src="../../images/temp_video.png" width="640" height="480" />
+		</td>
+	    <td width="190"><img src="../../images/right_side.png" width="190" height="480" /></td>
+	  </tr>
+	  <tr>
+	    <td colspan="3"><img src="../../images/bottom.png" width="1020" height="97" /></td>
+	  </tr>
+	</table>
+	
+	<div id="subquestion">
+		<table width="664" height="178px" border="0" align="center" cellpadding="0" cellspacing="0" id="question-form">
+			<tr height="65%">
+				<td align="center"><p id="question-text"><?php echo $this->entry->riddleQuestion ?></p></td>
+			</tr>
+			<tr height="35%" valign="top">
+				<td align="center">
+				
+					<form action="" method="post">
+						<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field"/>
+						<button type="submit" id="submit" class="input-button"></button>
+						<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
+					</form>
+				
+				</td>
+			</tr>
+		</table>
+	</div>
+		<script>
+			$("#submit").click(function() {
+				$("#error").hide();
+				$("#tempad").hide();
+				$("#subquestion").hide();
+				$('#advertisement').show();
+				if ($("#name").val().toLowerCase() == "<?php echo $this->entry->riddleAnswer ?>".toLowerCase())	{
+					$("#advertisement").jsMovie("option", "repeat", false);
+					$("#advertisement").jsMovie("playClip", 0);
+					$("form").hide();
+					$('#advertisement').unbind("ended");
+					$('#advertisement').bind("ended", function(){			
+						$("#question").hide();
+						$("#view").show();
+					});
+				} else {
+					$("#error").show();
+				}
+				
+				return false;
 			});			
-			// make frame 1 to frame 20 to a clip an call it Hello. Pause the animation for 2 seconds before the next clip is being played
-			$('#advertisement').jsMovie("addClip","Idle",1,15,2000);
-			$('#advertisement').jsMovie("addClip","Open",16,40,2000);
-			$('#advertisement').jsMovie("addClip","Close",41,50,2000);
-			// play both the clips
-			$('#advertisement').jsMovie("playClip", 0);
+		</script>
+</div>	
+	
 
-		});	
-	</script>	
-
-<div class="table-ornament-top">
+<div id="view" style="display: none">
+	<table width="1020" border="0" align="center" cellpadding="0" cellspacing="0">
+	  <tr>
+	    <th colspan="3" scope="col"><img src="../../images/top.png" width="1020" height="12" /></th>
+	  </tr>
+	  <tr>
+	    <td width="190"><img src="../../images/left_side.png" width="190" height="480" align="baseline" /></td>
+		<td width="640" id="postcard" align="center">
+			<img src='http://<?php echo $this->entry->fileName ?>' height="300px"/><p><?php echo $this->entry->messageBody ?></p>
+		</td>
+	    <td width="190"><img src="../../images/right_side.png" width="190" height="480" style="vertical-align:text-top;"/>
+		</td>
+	  </tr>
+	  <tr>
+	    <td colspan="3"><img src="../../images/bottom.png" width="1020" height="97" /></td>
+	  </tr>
+	</table>
+	<center>
+		<input id="close" type="button" class="close-button" value=""/>
+	</center>
+		<script>
+		$("#close").click(function() {
+			$("#view").hide();
+			$("#question").show();
+			$('#advertisement').unbind("ended");
+			$("#advertisement").jsMovie("playClip", 1);
+			$('#advertisement').bind("ended", function(){
+				$("#question").hide();
+				$("#advertisement").hide();
+			});
+		});
+		</script>				
+	<br />		
 </div>
 
+
+<?php /*
 <div class="table">	
 	<br/>
 <?php if ($this->entry != null && $this->entry->id != null) {?>	
@@ -77,14 +224,6 @@
 		</div>
 			
 	<?php } else { ?>
-
-	<div id="question">
-	<center>
-		<div id="advertisement">
-		<!-- div id="framedisplay">0/48</div><span>0..10-idle; 10..29-open; 29..48-close </span-->
-		</div>
-	</center>		
-	</div>
 	
 	<center>	
 	<div id="card" style="display: none">
@@ -120,7 +259,7 @@
 	
 		<script>
 			$("#close").click(function() {
-				$("#card").hide();
+				$("#view").hide();
 				$("#question").show();
 				$('#advertisement').unbind("ended");
 				$("#advertisement").jsMovie("playClip", 2);
@@ -144,7 +283,7 @@
 					$('#advertisement').bind("ended", function(){
 						//alert("asdf");						
 						$("#question").hide();
-						$("#card").show();
+						$("#view").show();
 					});
 				}
 				else
@@ -162,11 +301,5 @@
 
 
 </div>
-
-<div class="table-ornament-bottom">
-</div>
-<!-- Keep background behind content -->
-<div id="background">
-    <img src="../../images/background.png" class="stretch" alt="" />
-</div>
-
+*/
+?>

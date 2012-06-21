@@ -41,7 +41,7 @@
 		$('#advertisement').jsMovie("addClip","Open",1,26,2000);
 		$('#advertisement').jsMovie("addClip","Close",27,41,2000);
 		// play both the clips
-		$('#advertisement').jsMovie("playClip", 0);
+		//$('#advertisement').jsMovie("playClip", 0);
 
 	});	
 
@@ -199,109 +199,3 @@
 		</script>				
 	<br />		
 </div>
-
-
-<?php /*
-<div class="table">	
-	<br/>
-<?php if ($this->entry != null && $this->entry->id != null) {?>	
-	
-	<?php 
-	
-		date_default_timezone_set('Europe/Amsterdam');
-		
-		$todays_date = date("Y-m-d"); 
-		$today = strtotime($todays_date);
-		$expiration_date = strtotime($this->entry->unlockDate);
-	 
-		//if ($expiration_date > $today) { $valid = "yes"; } else { $valid = "no"; }	
-	?>
-	
-	<?php if ($expiration_date > $today) {?>
-
-		<div id="unlockDateMessage">
-		<center>
-		View your mystery on <?php echo $this->entry->unlockDate; ?>
-		</center>		
-		</div>
-			
-	<?php } else { ?>
-	
-	<center>	
-	<div id="card" style="display: none">
-		<table width="640" height="480" class="postcard">
-			<tr align="center">
-				<!-- TODO put message title in span -->
-				<td height="52"><span class="message-title-text"><?php echo $this->entry->messageTitle ?></span></td>
-			</tr>
-			<tr align="center">
-				<!-- TODO put file link in src -->
-				<td height="288"><img src='http://<?php echo $this->entry->fileName ?>' height="288px"/></td>
-			</tr>
-			<tr valign="top">
-				<!-- TODO put message body in span -->
-				<td height="128" class="message-body"><span class="message-body-text"><?php echo $this->entry->messageBody ?></span></td>
-			</tr>
-		</table>
-		
-		<center><button id="close" class="input-button" >Close</button></center>
-	</div>
-	</center>
-	
-	<div class="row" id="question-area">		
-		<form action="" method="post">
-			<p class="question-text" align="center"><?php echo $this->entry->riddleQuestion ?></p>
-			<center>
-				<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field"/>
-				<button type="submit" id="submit" class="input-button">RIGHT!</button>
-			</center>
-			<br/>
-			<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
-		</form>
-	
-		<script>
-			$("#close").click(function() {
-				$("#view").hide();
-				$("#question").show();
-				$('#advertisement').unbind("ended");
-				$("#advertisement").jsMovie("playClip", 2);
-				$('#advertisement').bind("ended", function(){
-					//$("form").show();
-					$("#question").hide();
-					$("#advertisement").hide();
-					//$("#advertisement").jsMovie("option", "repeat", true);
-					//$("#advertisement").jsMovie("playClip", 0);
-				});
-			});
-		
-			$("#submit").click(function() {
-				$("#error").hide();
-				if ($("#name").val().toLowerCase() == "<?php echo $this->entry->riddleAnswer ?>".toLowerCase())
-				{
-					$("#advertisement").jsMovie("option", "repeat", false);
-					$("#advertisement").jsMovie("playClip", 1);
-					$("form").hide();
-					$('#advertisement').unbind("ended");
-					$('#advertisement').bind("ended", function(){
-						//alert("asdf");						
-						$("#question").hide();
-						$("#view").show();
-					});
-				}
-				else
-				{
-					$("#error").show();
-				}
-				
-				return false;
-			});			
-		</script>
-	</div>
-
-	<?php } ?>		
-<?php } ?>		
-
-
-</div>
-*/
-?>

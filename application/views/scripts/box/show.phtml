@@ -116,7 +116,7 @@
 					<form action="" method="post">
 						<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field"/>
 						<button type="submit" id="submit" class="input-button"></button>
-						<center><span id="error" style="display: none; color: red">Nope... try again</span></center>
+						<center><span id="error" style="display: none; color: red; font-size: 1.6em;">Nope... try again</span></center>
 					</form>
 				
 				</td>
@@ -126,10 +126,10 @@
 		<script>
 			$("#submit").click(function() {
 				$("#error").hide();
-				$("#tempad").hide();
-				$("#subquestion").hide();
-				$('#advertisement').show();
 				if ($("#name").val().toLowerCase() == "<?php echo $this->entry->riddleAnswer ?>".toLowerCase())	{
+					$("#tempad").hide();
+					$("#subquestion").hide();
+					$('#advertisement').show();
 					$("#advertisement").jsMovie("option", "repeat", false);
 					$("#advertisement").jsMovie("playClip", 0);
 					$("form").hide();

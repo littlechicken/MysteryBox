@@ -5,13 +5,6 @@
 <script type="text/javascript" src="../../js/jquery.jsmovie.1.4.1.min.js" ></script>
 
 <script>
-	jQuery.preloadImages = function () {
-	    var images = (typeof arguments[0] == 'object') ? arguments[0] : arguments;
-	    for (var i = 0; i < images.length; i++) {
-	        jQuery("<img>").attr("src", images[i]);
-	    }
-	};
-		
 	$(document).ready(function(){
 		$('#advertisement').jsMovie({
 			sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...
@@ -27,15 +20,7 @@
 			loader   : {path:"../../images/loader.png",height:40,width:40,rows:4,columns:4},
 			fps: 10
 		});
-
-		//$.preloadImages("../../images/postcard.png");
-		<?php /*if ($this->entry != null && $this->entry->id != null) {
-			$.preloadImages("<?php echo $this->entry->fileName ?>");
-		 }*/?>
-					
-		$('#advertisement').bind("playing",function(){
-			$('#framedisplay').text($(this).data("currentFrame").data("frame")+"/41"); 
-		});			
+		
 		// make frame 1 to frame 20 to a clip an call it Hello. Pause the animation for 2 seconds before the next clip is being played
 		//$('#advertisement').jsMovie("addClip","Idle",1,15,2000);
 		$('#advertisement').jsMovie("addClip","Open",1,26,2000);

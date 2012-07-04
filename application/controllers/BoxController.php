@@ -126,9 +126,27 @@ class BoxController extends Zend_Controller_Action
     		$box = new Application_Model_Box();
     		$map = new Application_Model_BoxMapper();
     		$map->find($v->getBoxId(), $box);
-    			
+
+    		$type = $this->getFileTypeFromAmazon($box);
+    		$box->setFileType($type);
+    		
     		$this->view->entry = $box;
     	}    	
+    }
+    
+    public function getFileTypeFromAmazon($box) {    		
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
+    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
+    	$rootBucket = $config->rootBucket;
+    		
+    	$amazonFileName = $box->getAmazonFileName();
+    	$info = $s3->getInfo($rootBucket . DIRECTORY_SEPARATOR . $amazonFileName);
+    		
+    	$filetype = $info['type'];
+    	$filetype = explode(DIRECTORY_SEPARATOR, $filetype);
+    	$filetype = $filetype[0];
+    	    	
+    	return $filetype;
     }
 
     public function processRemoveQuery() {
@@ -158,15 +176,39 @@ class BoxController extends Zend_Controller_Action
     	$map->find($boxId, $box);
     
     	if ($box->isNotEmpty()) {
-    		$bmap = new Application_Model_BoxMapper();
-    		$bmap->delete($boxId);
-
+    		$viewed = 1;
+    		
     		$vmap = new Application_Model_ViewerMapper();
     		$viewers = $vmap->fetchByBoxId($boxId);
     		foreach($viewers as $viewer) {
-    			$vmap->delete($viewer->getId());    			
+    			if ($viewer->getIsViewed())
+    			{
+    				$vmap->delete($viewer->getId());
+    			} else {
+    				$viewed = 0;
+    			}
     		}
+    		
+    		if ($viewed == 1)
+    		{
+	    		if ($this->removeAmazonFile($box)) {
+	    		
+		    		$bmap = new Application_Model_BoxMapper();
+		    		$bmap->delete($boxId);
+	    		}
+    		}	
     	}
+    }
+    
+    public function removeAmazonFile($box) {
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
+    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
+    	$rootBucket = $config->rootBucket;
+    	
+    	$amazonFileName = $box->getAmazonFileName();
+    	$result_bool = $s3->removeObject($rootBucket . DIRECTORY_SEPARATOR . $amazonFileName);
+    	
+    	return $result_bool; 
     }
     
     public function deleteAction()

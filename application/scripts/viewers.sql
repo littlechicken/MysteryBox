@@ -5,3 +5,5 @@ CREATE TABLE viewers (
 	boxId VARCHAR(38) NOT NULL,	
 	isViewed BOOL,
 	PRIMARY KEY (viewerId) );
+	
+'INSERT INTO viewers VALUES ('v03138d6-6b8d-4648-b818-4cc8e4debf8v', '1a3138d6-6b8d-4648-b818-4cc8e4debf8c', 0);

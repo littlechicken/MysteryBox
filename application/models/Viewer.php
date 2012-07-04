@@ -8,7 +8,7 @@ class Application_Model_Viewer
 	public function parseXml($xml){
 		$this->_id = (string)$xml->viewerId;
 		$this->_boxId = (string)$xml->boxId;
-		$this->_isViewed = (boolean)$xml->isViewed;
+		$this->_isViewed = (boolean)(int)$xml->isViewed;
 	}
 
 	public function __construct(array $options = null)

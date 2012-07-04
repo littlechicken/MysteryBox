@@ -36,13 +36,13 @@ class Application_Model_BoxMapper
 	    	$data = base64_decode($box->getFileContent());
 	    	
 	    	$permissions = array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ);
-	    	$amazonFilePath = $rootBucket . DIRECTORY_SEPARATOR . $box->getFileName();
+	    	$amazonFilePath = $rootBucket . DIRECTORY_SEPARATOR . $box->getAmazonFileName();
 	    	
 	    	$s3->putObject($amazonFilePath, $data, $permissions);
 	    	
-	    	$fullRemoteFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getFileName(); 
+	    	//$fullRemoteFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getAmazonFileName(); 
 	    	
-    		return $fullRemoteFilePath; 
+    		//return $fullRemoteFilePath; 
     	} catch(Exception $ex) {
     		print_r($ex->getMessage());
     	}
@@ -50,7 +50,7 @@ class Application_Model_BoxMapper
        
     public function save(Application_Model_Box $box)
     {
-    	$fullAmazonFilePath = $this->saveToAmazon($box);
+    	$this->saveToAmazon($box);
 		
         $data = array(
         	'boxId'	=> $box->getId(),
@@ -59,7 +59,8 @@ class Application_Model_BoxMapper
         	'messageBody' => $box->getMessageBody(),
         	'riddleQuestion' => $box->getRiddleQuestion(),
         	'riddleAnswer' => $box->getRiddleAnswer(),
-        	'fileName' => $fullAmazonFilePath,
+        	'fileName' => $box->getFileName(),
+        	'amazonFileName' => $box->getAmazonFileName(),        		
             'unlockDate' => $box->getDataBaseFormatUnlockDate(),
         );
  
@@ -80,6 +81,7 @@ class Application_Model_BoxMapper
                   ->setRiddleQuestion($row->riddleQuestion)
                   ->setRiddleAnswer($row->riddleAnswer)
                   ->setFileName($row->fileName)
+                  ->setAmazonFileName($row->amazonFileName)
                   ->setUnlockDate($row->unlockDate);        
     }
  
@@ -96,6 +98,7 @@ class Application_Model_BoxMapper
                   ->setRiddleQuestion($row->riddleQuestion)
                   ->setRiddleAnswer($row->riddleAnswer)
                   ->setFileName($row->fileName)
+                  ->setAmazonFileName($row->amazonFileName)                  
                   ->setUnlockDate($row->unlockDate);        
             $entries[] = $entry;
         }

@@ -11,8 +11,11 @@ class Application_Model_Box
     protected $_unlockDate;
     
     protected $_fileName;
+    protected $_amazonFileName;
     protected $_fileContent;    
  
+    protected $_fileType;
+    
     public function parseXml($xml){    	
     	$this->_id = (string)$xml->boxId;
     	$this->_deviceId = (string)$xml->deviceId;
@@ -22,6 +25,7 @@ class Application_Model_Box
     	$this->_riddleAnswer = (string)$xml->riddleAnswer;
     	$this->_unlockDate = (string)$xml->unlockDate;
     	$this->_fileName = (string)$xml->file->attributes()->name;
+    	$this->_amazonFileName = uniqid("", true);
     	$this->_fileContent = (string)$xml->file;
     }
         
@@ -31,7 +35,7 @@ class Application_Model_Box
             $this->setOptions($options);
         }
     }
- 
+    
     public function __set($name, $value)
     {
         $method = 'set' . $name;
@@ -124,6 +128,36 @@ class Application_Model_Box
     public function getFileName() {
     	return $this->_fileName;
     }
+
+    public function setAmazonFileName($value) {
+    	$this->_amazonFileName = $value;
+    	return $this;
+    }
+    
+    public function getAmazonFileName() {
+    	return $this->_amazonFileName;
+    }
+    
+    public function getAmazonFullFileName() {
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
+    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
+    	$rootBucket = $config->rootBucket;
+    	 
+    	//$amazonFilePath = "http://". $rootBucket . DIRECTORY_SEPARATOR . $this->_amazonFileName;
+    	
+    	$amazonFilePath = "http://" . $rootBucket . '.s3.amazonaws.com/' . $this->_amazonFileName;
+    	
+    	return $amazonFilePath;
+    }
+    
+    public function setFileType($value) {
+    	$this->_fileType = $value;
+    	return $this;
+    }
+    
+    public function getFileType() {
+    	return $this->_fileType;
+    }
     
     public function setFileContent($value) {
     	$this->_fileContent = $value;
@@ -155,6 +189,7 @@ class Application_Model_Box
     	if ($this->_riddleAnswer == null) $this->_riddleAnswer = $box->getRiddleAnswer();
     	if ($this->_unlockDate == null) $this->_unlockDate = $box->getUnlockDate();
     	if ($this->_fileName == null) $this->_fileName = $box->getFileName();
+    	if ($this->_amazonFileName == null) $this->_amazonFileName = $box->getAmazonFileName();
     }
     
     public function isNotEmpty() {

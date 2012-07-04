@@ -21,7 +21,7 @@ class ViewerController extends Zend_Controller_Action
         /*$test_data = "<viewer>
 						<viewerId>dsfasdfadsf1</viewerId>
     					<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</boxId>
-    					<isViewed>1</isViewed>
+    					<isViewed>0</isViewed>
     				  </viewer>";
         
         $this->processData($test_data);*/

@@ -129,6 +129,15 @@ class Application_Model_Box
     	return $this->_fileName;
     }
 
+    public function setFileType($value) {
+    	$this->_fileType = $value;
+    	return $this;
+    }
+    
+    public function getFileType() {
+    	return $this->_fileType;
+    }
+    
     public function setAmazonFileName($value) {
     	$this->_amazonFileName = $value;
     	return $this;
@@ -142,23 +151,12 @@ class Application_Model_Box
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
     	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
     	$rootBucket = $config->rootBucket;
-    	 
-    	//$amazonFilePath = "http://". $rootBucket . DIRECTORY_SEPARATOR . $this->_amazonFileName;
-    	
-    	$amazonFilePath = "http://" . $rootBucket . '.s3.amazonaws.com/' . $this->_amazonFileName;
+    	     	
+    	$amazonFilePath = "https://" . $rootBucket . '.s3.amazonaws.com/' . $this->_amazonFileName;
     	
     	return $amazonFilePath;
     }
-    
-    public function setFileType($value) {
-    	$this->_fileType = $value;
-    	return $this;
-    }
-    
-    public function getFileType() {
-    	return $this->_fileType;
-    }
-    
+        
     public function setFileContent($value) {
     	$this->_fileContent = $value;
     	return $this;
@@ -189,6 +187,7 @@ class Application_Model_Box
     	if ($this->_riddleAnswer == null) $this->_riddleAnswer = $box->getRiddleAnswer();
     	if ($this->_unlockDate == null) $this->_unlockDate = $box->getUnlockDate();
     	if ($this->_fileName == null) $this->_fileName = $box->getFileName();
+    	if ($this->_fileType == null) $this->_fileType = $box->getFileType();
     	if ($this->_amazonFileName == null) $this->_amazonFileName = $box->getAmazonFileName();
     }
     

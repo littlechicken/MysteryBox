@@ -127,8 +127,8 @@ class BoxController extends Zend_Controller_Action
     		$map = new Application_Model_BoxMapper();
     		$map->find($v->getBoxId(), $box);
 
-    		$type = $this->getFileTypeFromAmazon($box);
-    		$box->setFileType($type);
+    		//$type = $this->getFileTypeFromAmazon($box);
+    		//$box->setFileType($type);
     		
     		$this->view->entry = $box;
     	}    	

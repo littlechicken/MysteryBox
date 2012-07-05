@@ -170,6 +170,9 @@
 
 			$filetype = $this->entry->fileType;
 			
+			$filetype = explode(DIRECTORY_SEPARATOR, $filetype);
+			$filetype = $filetype[0];
+				
 			if ($filetype == "audio") {
 			?>
 			

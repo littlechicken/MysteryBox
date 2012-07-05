@@ -23,7 +23,7 @@ class Application_Model_BoxMapper
         return $this->_dbTable;
     }
  
-    private function saveToAmazon(Application_Model_Box $box) {
+    private function saveToAmazon(Application_Model_Box $box, $data) {
     	try
     	{
 	    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
@@ -32,17 +32,11 @@ class Application_Model_BoxMapper
 	    
 	    	if (!$s3->isBucketAvailable($rootBucket));
 	    	$s3->createBucket($rootBucket);
-	    
-	    	$data = base64_decode($box->getFileContent());
 	    	
 	    	$permissions = array(Zend_Service_Amazon_S3::S3_ACL_HEADER => Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ);
 	    	$amazonFilePath = $rootBucket . DIRECTORY_SEPARATOR . $box->getAmazonFileName();
 	    	
 	    	$s3->putObject($amazonFilePath, $data, $permissions);
-	    	
-	    	//$fullRemoteFilePath = $rootBucket. '.s3.amazonaws.com/' . $box->getAmazonFileName(); 
-	    	
-    		//return $fullRemoteFilePath; 
     	} catch(Exception $ex) {
     		print_r($ex->getMessage());
     	}
@@ -50,7 +44,9 @@ class Application_Model_BoxMapper
        
     public function save(Application_Model_Box $box)
     {
-    	$this->saveToAmazon($box);
+    	$data = base64_decode($box->getFileContent());
+    	
+    	$this->saveToAmazon($box, $data);
 		
         $data = array(
         	'boxId'	=> $box->getId(),
@@ -60,11 +56,18 @@ class Application_Model_BoxMapper
         	'riddleQuestion' => $box->getRiddleQuestion(),
         	'riddleAnswer' => $box->getRiddleAnswer(),
         	'fileName' => $box->getFileName(),
+        	'fileType' => $this->getFileType($data),
         	'amazonFileName' => $box->getAmazonFileName(),        		
             'unlockDate' => $box->getDataBaseFormatUnlockDate(),
         );
  
         $this->getDbTable()->insert($data);
+    }
+    
+    public function getFileType($data) {
+    	$file_info = new finfo(FILEINFO_MIME);
+    	$mime_type = $file_info->buffer($data);
+    	return $mime_type;
     }
          
     public function find($id, Application_Model_Box $box)
@@ -81,6 +84,7 @@ class Application_Model_BoxMapper
                   ->setRiddleQuestion($row->riddleQuestion)
                   ->setRiddleAnswer($row->riddleAnswer)
                   ->setFileName($row->fileName)
+                  ->setFileType($row->fileType)
                   ->setAmazonFileName($row->amazonFileName)
                   ->setUnlockDate($row->unlockDate);        
     }
@@ -98,6 +102,7 @@ class Application_Model_BoxMapper
                   ->setRiddleQuestion($row->riddleQuestion)
                   ->setRiddleAnswer($row->riddleAnswer)
                   ->setFileName($row->fileName)
+                  ->setFileType($row->fileType)
                   ->setAmazonFileName($row->amazonFileName)                  
                   ->setUnlockDate($row->unlockDate);        
             $entries[] = $entry;

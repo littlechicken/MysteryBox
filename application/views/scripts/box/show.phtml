@@ -15,6 +15,15 @@
 <script type="text/javascript" src="../../js/jquery.jsmovie.1.4.1.min.js" ></script>
 
 <script>
+	jQuery.preloadImages = function () {
+			var images = (typeof arguments[0] == 'object') ? arguments[0] : arguments;
+			for (var i = 0; i < images.length; i++) {
+			jQuery("<img>").attr("src", images[i]);
+		}
+	};
+
+	$.preloadImages("../../images/postcard.png");
+		
 	$(document).ready(function(){
 		$('#advertisement').jsMovie({
 			sequence : "seq##.jpg",    //the #### will be replaced with 0001,0002,0003,...

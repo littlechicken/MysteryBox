@@ -41,7 +41,7 @@ class BoxController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
  
-        $test_data = "<box>
+        /*$test_data = "<box>
          					<boxId>1a3138d6-6b8d-4648-b818-4cc8e4debf8c</boxId>
         					<deviceId>000123</deviceId>
         					<messageTitle>The title</messageTitle>
@@ -51,7 +51,7 @@ class BoxController extends Zend_Controller_Action
         					<unlockDate>20-06-1985 17:21:15</unlockDate>
         					<file name='test.file'>asfdsafqete</file>
         				</box>";
-        $this->processData($test_data);
+        $this->processData($test_data);*/
         
         if ($this->getRequest()->isPost()) {
            	$this->processFiles();

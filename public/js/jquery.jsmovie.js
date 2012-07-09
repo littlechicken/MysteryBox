@@ -581,8 +581,8 @@
 			this
 				.append("<div class='laoderOverlay' />")
 				.children(".laoderOverlay")
-				.css({"background-color":"black",
-					  opacity:0.8,
+				.css({"background-color":"transparent",
+					  opacity:0,
 					  height:this.height()+"px",
 					  width:this.width()+"px",
 					  position:'absolute',

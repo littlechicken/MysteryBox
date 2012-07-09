@@ -2,8 +2,7 @@ DROP TABLE IF EXISTS boxes;
 
 CREATE TABLE boxes ( 
 	boxId VARCHAR(38) NOT NULL, 
-	deviceId TEXT NULL, 
-	messageTitle TEXT NULL, 
+	deviceId TEXT NULL,  
 	messageBody TEXT NULL, 
 	riddleQuestion TEXT NULL, 
 	riddleAnswer TEXT NULL, 

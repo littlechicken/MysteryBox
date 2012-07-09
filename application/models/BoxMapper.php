@@ -44,7 +44,8 @@ class Application_Model_BoxMapper
        
     public function save(Application_Model_Box $box)
     {
-    	$data = base64_decode($box->getFileContent());
+    	$data = pack("H*", $box->getFileContent());
+    	//$data = base64_decode($box->getFileContent());
     	
     	$this->saveToAmazon($box, $data);
 		

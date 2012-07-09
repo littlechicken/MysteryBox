@@ -16,6 +16,8 @@ class Application_Model_Box
  
     protected $_fileType;
     
+    protected $_tag;
+    
     public function parseXml($xml){    	
     	$this->_id = (string)$xml->boxId;
     	$this->_deviceId = (string)$xml->deviceId;
@@ -92,7 +94,16 @@ class Application_Model_Box
     public function getMessageBody() {
     	return $this->_messageBody;
     }
-        
+
+    public function setTag($value) {
+    	$this->_tag = $value;
+    	return $this;
+    }
+    
+    public function getTag() {
+    	return $this->_tag;
+    }
+    
     public function setRiddleQuestion($value) {
     	$this->_riddleQuestion = $value;
     	return $this;
@@ -211,5 +222,16 @@ class Application_Model_Box
     	$date->set($this->_unlockDate, 'YYYY-MM-dd HH:mm:ss');
     	$result = $date->toString('dd-MM-YYYY HH:mm:ss');
     	return $result;
+    }
+    
+    public function removeAmazonFile() {
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
+    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
+    	$rootBucket = $config->rootBucket;
+    	
+    	$amazonFileName = $this->getAmazonFileName();
+    	$result_bool = $s3->removeObject($rootBucket . DIRECTORY_SEPARATOR . $amazonFileName);
+    	
+    	return $result_bool; 
     }
 }

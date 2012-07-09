@@ -55,8 +55,8 @@ class BoxController extends Zend_Controller_Action
         
         if ($this->getRequest()->isPost()) {
            	$this->processFiles();
-           	echo 'file was uploaded';            	            	
-        }
+           	echo 'file was uploaded'; 
+        }           	            	
     }
 
     public function changeAction()
@@ -78,7 +78,8 @@ class BoxController extends Zend_Controller_Action
     	}
     }
 
-    public function processChangeQuery() {
+    public function processChangeQuery()
+    {
     	$apt    = new Zend_File_Transfer_Adapter_Http();
     	$files  = $apt->getFileInfo();
     	foreach($files as $file => $fileInfo) {
@@ -95,8 +96,9 @@ class BoxController extends Zend_Controller_Action
     	}
     
     }
-    
-    function processChange($data) {
+
+    public function processChange($data)
+    {
     	$xml = simplexml_load_string($data);
     	$newbox = new Application_Model_Box();
     	
@@ -112,7 +114,7 @@ class BoxController extends Zend_Controller_Action
     	
     	$map->save($newbox);
     }
-        
+
     public function showAction()
     {
     	$boxId = $this->getRequest()->getParam('boxId');
@@ -124,17 +126,22 @@ class BoxController extends Zend_Controller_Action
     		$vmap->find($viewerId, $v);
     			
     		$box = new Application_Model_Box();
-    		$map = new Application_Model_BoxMapper();
-    		$map->find($v->getBoxId(), $box);
-
-    		//$type = $this->getFileTypeFromAmazon($box);
-    		//$box->setFileType($type);
-    		
-    		$this->view->entry = $box;
-    	}    	
+    		if ($box->isEmpty()) {
+    			$this->_redirect('/box/notfound');    			
+    		} else {
+	    		$map = new Application_Model_BoxMapper();
+	    		$map->find($v->getBoxId(), $box);
+	
+	    		$box->setTag($viewerId);
+	    		$this->view->entry = $box;
+    		}
+    	} else {
+    		$this->_redirect('/box/notfound');
+    	}   	
     }
-    
-    public function getFileTypeFromAmazon($box) {    		
+
+    public function getFileTypeFromAmazon($box)
+    {
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
     	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
     	$rootBucket = $config->rootBucket;
@@ -149,7 +156,8 @@ class BoxController extends Zend_Controller_Action
     	return $filetype;
     }
 
-    public function processRemoveQuery() {
+    public function processRemoveQuery()
+    {
     	$apt    = new Zend_File_Transfer_Adapter_Http();
     	$files  = $apt->getFileInfo();
     	foreach($files as $file => $fileInfo) {
@@ -167,7 +175,8 @@ class BoxController extends Zend_Controller_Action
     	 
     }
 
-    function processRemove($data) {
+    public function processRemove($data)
+    {
     	$xml = simplexml_load_string($data);
     	$boxId = (string)$xml->boxId;
     
@@ -191,26 +200,15 @@ class BoxController extends Zend_Controller_Action
     		
     		if ($viewed == 1)
     		{
-	    		if ($this->removeAmazonFile($box)) {
+	    		if ($box->removeAmazonFile()) {
 	    		
 		    		$bmap = new Application_Model_BoxMapper();
 		    		$bmap->delete($boxId);
 	    		}
     		}	
-    	}
+    	}	
     }
-    
-    public function removeAmazonFile($box) {
-    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/cloud.ini', 'amazon');
-    	$s3 = new Zend_Service_Amazon_S3($config->accessKey, $config->secretKey);
-    	$rootBucket = $config->rootBucket;
-    	
-    	$amazonFileName = $box->getAmazonFileName();
-    	$result_bool = $s3->removeObject($rootBucket . DIRECTORY_SEPARATOR . $amazonFileName);
-    	
-    	return $result_bool; 
-    }
-    
+
     public function deleteAction()
     {
     	/*$test_data = "<deleteBox>
@@ -224,8 +222,15 @@ class BoxController extends Zend_Controller_Action
     	}
     }
 
+    public function notfoundAction()
+    {
+        // action body
+    }
+
 
 }
+
+
 
 
 

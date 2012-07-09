@@ -181,7 +181,7 @@
 			
 			$filetype = explode(DIRECTORY_SEPARATOR, $filetype);
 			$filetype = $filetype[0];
-				
+			
 			if ($filetype == "audio") {
 			?>
 			
@@ -338,8 +338,15 @@
 			$('#advertisement').bind("ended", function(){
 				$("#question").hide();
 				$("#advertisement").hide();
+				removeBox();				
 			});
 		});
+
+		function removeBox() {
+			var url='/viewer/remove/?id=' + '<?php echo $this->entry->tag ?>';
+			alert(url);
+			window.open(url, "_self");
+		}
 		</script>				
 	<br />		
 </div>

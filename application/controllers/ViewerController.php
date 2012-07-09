@@ -89,11 +89,54 @@ class ViewerController extends Zend_Controller_Action
 			}
 			
 			$this->view->entries = $entries;
-		//}
+		//
+    }
+
+    public function removeAction()
+    {
+    	$viewerId = $this->getRequest()->getParam('id');
+    	
+    	$vmap = new Application_Model_ViewerMapper();
+    	
+    	$viewer = new Application_Model_Viewer();
+    	$vmap->find($viewerId, $viewer);
+    	
+    	$boxId = $viewer->getBoxId();
+    	$vmap->delete($viewer->getId());
+    	
+    	$box = new Application_Model_Box();
+    	$map = new Application_Model_BoxMapper();
+    	$map->find($boxId, $box);
+    	
+    	if ($box->isNotEmpty()) {
+    		$viewed = 1;
+    	
+    		$vmap = new Application_Model_ViewerMapper();
+    		$viewers = $vmap->fetchByBoxId($boxId);
+    		foreach($viewers as $viewer) {
+    			if ($viewer->getIsViewed())
+    			{
+    				$vmap->delete($viewer->getId());
+    			} else {
+    				$viewed = 0;
+    			}
+    		}
+    	
+    		if ($viewed == 1)
+    		{
+    			if ($box->removeAmazonFile()) {
+    		   
+    				$bmap = new Application_Model_BoxMapper();
+    				$bmap->delete($boxId);
+    			}
+    		}
+    	}    	
     }
 
 
 }
+
+
 
 
 

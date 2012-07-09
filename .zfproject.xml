@@ -24,11 +24,13 @@
           <actionMethod actionName="change"/>
           <actionMethod actionName="show"/>
           <actionMethod actionName="delete"/>
+          <actionMethod actionName="notfound"/>
         </controllerFile>
         <controllerFile controllerName="Viewer">
           <actionMethod actionName="index"/>
           <actionMethod actionName="add"/>
           <actionMethod actionName="show"/>
+          <actionMethod actionName="remove"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -93,6 +95,12 @@
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="fbcon"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Viewer">
+            <viewScriptFile forActionName="remove"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Box">
+            <viewScriptFile forActionName="notfound"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -142,11 +150,13 @@
             <testApplicationActionMethod forActionName="change"/>
             <testApplicationActionMethod forActionName="show"/>
             <testApplicationActionMethod forActionName="delete"/>
+            <testApplicationActionMethod forActionName="notfound"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Viewer">
             <testApplicationActionMethod forActionName="index"/>
             <testApplicationActionMethod forActionName="add"/>
             <testApplicationActionMethod forActionName="show"/>
+            <testApplicationActionMethod forActionName="remove"/>
           </testApplicationControllerFile>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>

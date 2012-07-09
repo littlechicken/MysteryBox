@@ -582,7 +582,7 @@
 				.append("<div class='laoderOverlay' />")
 				.children(".laoderOverlay")
 				.css({"background-color":"transparent",
-					  opacity:0,
+					  opacity:0.5,
 					  height:this.height()+"px",
 					  width:this.width()+"px",
 					  position:'absolute',

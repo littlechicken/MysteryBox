@@ -126,12 +126,11 @@ class BoxController extends Zend_Controller_Action
     		$vmap->find($viewerId, $v);
     			
     		$box = new Application_Model_Box();
+    		$map = new Application_Model_BoxMapper();
+    		$map->find($v->getBoxId(), $box);
     		if ($box->isEmpty()) {
-    			$this->_redirect('/box/notfound');    			
+    			$this->_redirect('/box/notfound');
     		} else {
-	    		$map = new Application_Model_BoxMapper();
-	    		$map->find($v->getBoxId(), $box);
-	
 	    		$box->setTag($viewerId);
 	    		$this->view->entry = $box;
     		}

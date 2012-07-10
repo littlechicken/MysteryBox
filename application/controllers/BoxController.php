@@ -54,6 +54,7 @@ class BoxController extends Zend_Controller_Action
         $this->processData($test_data);*/
         
         if ($this->getRequest()->isPost()) {
+        	print_r($GLOBAL);
            	$this->processFiles();
            	echo 'file was uploaded'; 
         }           	            	

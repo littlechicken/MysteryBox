@@ -32,6 +32,8 @@ class BoxController extends Zend_Controller_Action
 		$xml = simplexml_load_string($data);			
 		$box	= new Application_Model_Box();
 		
+		print_r($xml);
+		
 		$box->parseXml($xml);									
 		$mapper  = new Application_Model_BoxMapper();
 		$mapper->save($box);

@@ -240,7 +240,12 @@ class BoxController extends Zend_Controller_Action
     	 					<body>simple test</body>
     					</send>";
     	 
-    	$this->processSend($test_data);  
+    	try
+    	{
+    		$this->processSend($test_data);
+    	} catch (Exception $ex) {
+    		print_r($ex);
+    	}  
 
     	//if ($this->getRequest()->isPost())
     	//	$this->processSendQuery();

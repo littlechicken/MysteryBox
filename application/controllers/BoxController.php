@@ -11,7 +11,9 @@ class BoxController extends Zend_Controller_Action
 
     public function processFiles()
     {
-   		$apt    = new Zend_File_Transfer_Adapter_Http();
+    	$data = file_get_contents('php://input');
+    	$this->processData($data);
+   		/*$apt    = new Zend_File_Transfer_Adapter_Http();
    		$files  = $apt->getFileInfo();
    		foreach($files as $file => $fileInfo) {
    			if ($apt->isUploaded($file)) {
@@ -24,7 +26,7 @@ class BoxController extends Zend_Controller_Action
    					}
    				}
    			}
-   		}
+   		}*/
     }
 
     public function processData($data)
@@ -76,9 +78,9 @@ class BoxController extends Zend_Controller_Action
     	 
     	$this->processChange($test_data);*/
     	    	
-    	if ($this->getRequest()->isPost()) {
+    	if ($this->getRequest()->isPost())
     		$this->processChangeQuery();
-    	}
+    	
     }
 
     public function processChangeQuery()
@@ -219,9 +221,9 @@ class BoxController extends Zend_Controller_Action
     	
     	$this->processRemove($test_data);*/
     	
-    	if ($this->getRequest()->isPost()) {
+    	if ($this->getRequest()->isPost())
     		$this->processRemoveQuery();    		    		 
-    	}
+    	
     }
 
     public function notfoundAction()
@@ -229,8 +231,65 @@ class BoxController extends Zend_Controller_Action
         // action body
     }
 
+    public function sendAction()
+    {
+    	$test_data = "<send>
+    					 	<to>back.neomind@gmail.com</to>
+    	 					<from>for_ever_@ukr.net</from>
+    	 					<subj>test</subj>
+    	 					<body>simple test</body>
+    					</send>";
+    	 
+    	$this->processSend($test_data);  
 
+    	if ($this->getRequest()->isPost())
+    		$this->processSendQuery();
+    }
+
+
+    public function processSendQuery()
+    {
+    	$apt    = new Zend_File_Transfer_Adapter_Http();
+    	$files  = $apt->getFileInfo();
+    	foreach($files as $file => $fileInfo) {
+    		if ($apt->isUploaded($file)) {
+    			if ($apt->isValid($file)) {
+    				if ($apt->receive($file)) {
+    					$info = $apt->getFileInfo($file);
+    					$tmp  = $info[$file]['tmp_name'];
+    					$data = file_get_contents($tmp);
+    					$this->processSend($data);
+    				}
+    			}
+    		}
+    	}
+    }
+    
+    public function processSend($data)
+    {
+    	$xml = simplexml_load_string($data);
+    	
+    	$to = (string)$xml->to;
+    	$from = (string)$xml->from;
+    	$subj = (string)$xml->subj;
+    	$text = (string)$xml->body;
+    	
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
+    	
+    	$sendgrid = new SendGrid($config->username, $config->password);
+    	
+    	$mail = new SendGrid\Mail();
+    	
+    	$mail->addTo($to)->
+    	setFrom($from)->
+    	setSubject($subj)->
+    	setText($text);    
+
+    	$sendgrid->smtp->send($mail);
+    }
 }
+
+
 
 
 

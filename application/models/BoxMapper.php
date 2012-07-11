@@ -44,6 +44,7 @@ class Application_Model_BoxMapper
        
     public function save(Application_Model_Box $box)
     {
+    	//$data = $box->getFileContent();
     	$data = pack("H*", $box->getFileContent());
     	//$data = base64_decode($box->getFileContent());
     	

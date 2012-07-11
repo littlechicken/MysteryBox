@@ -25,6 +25,7 @@
           <actionMethod actionName="show"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="notfound"/>
+          <actionMethod actionName="send"/>
         </controllerFile>
         <controllerFile controllerName="Viewer">
           <actionMethod actionName="index"/>
@@ -101,6 +102,9 @@
           <viewControllerScriptsDirectory forControllerName="Box">
             <viewScriptFile forActionName="notfound"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Box">
+            <viewScriptFile forActionName="send"/>
+          </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
         <viewFiltersDirectory enabled="false"/>
@@ -151,6 +155,7 @@
             <testApplicationActionMethod forActionName="show"/>
             <testApplicationActionMethod forActionName="delete"/>
             <testApplicationActionMethod forActionName="notfound"/>
+            <testApplicationActionMethod forActionName="send"/>
           </testApplicationControllerFile>
           <testApplicationControllerFile forControllerName="Viewer">
             <testApplicationActionMethod forActionName="index"/>

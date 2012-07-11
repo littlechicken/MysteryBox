@@ -279,7 +279,7 @@ class BoxController extends Zend_Controller_Action
     	$subj = (string)$xml->subj;
     	$text = (string)$xml->body;
     	
-    	mail($to, $subj, $text);
+    	//mail($to, $subj, $text);
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
     	
     	$sendgrid = new SendGrid($config->username, $config->password);

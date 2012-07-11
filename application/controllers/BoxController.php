@@ -242,8 +242,8 @@ class BoxController extends Zend_Controller_Action
     	 
     	$this->processSend($test_data);  
 
-    	if ($this->getRequest()->isPost())
-    		$this->processSendQuery();
+    	//if ($this->getRequest()->isPost())
+    	//	$this->processSendQuery();
     }
 
 

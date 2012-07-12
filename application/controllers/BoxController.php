@@ -279,10 +279,10 @@ class BoxController extends Zend_Controller_Action
     	$subj = (string)$xml->subj;
     	$text = (string)$xml->body;
     	
-    	$this->send($from, $to, $subj, $text);
+    	//$this->send($from, $to, $subj, $text);
+    	//$this->send($from, $to, $subj, $text);
     	
-    	/*
-    	//mail($to, $subj, $text);
+    	
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
     	
     	$sendgrid = new SendGrid($config->username, $config->password);
@@ -295,7 +295,48 @@ class BoxController extends Zend_Controller_Action
     	setText($text);    
 
     	$sendgrid->web->send($mail);
-    	*/
+    }
+    
+    /*public function send($from, $to, $subject, $text) {
+    	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
+
+    	// Your SendGrid account credentials
+    	$username = $config->username;
+    	$password = $config->password;
+    	
+    	// Create new swift connection and authenticate
+    	$transport = Swift_SmtpTransport::newInstance('smtp.sendgrid.net', 587);
+    	$transport->setUsername($username);
+    	$transport->setPassword($password);
+    	
+    	$swift = Swift_Mailer::newInstance($transport);
+    	
+    	// Create a message (subject)
+    	$message = new Swift_Message($subject);
+    	
+    	// add SMTPAPI header to the message
+    	$headers = $message->getHeaders();
+    	$headers->addTextHeader('X-SMTPAPI', $hdr->asJSON());
+    	
+    	// attach the body of the email
+    	$message->setFrom($from);
+    	$message->setBody($html, 'text/html');
+    	$message->setTo($to);
+    	$message->addPart($text, 'text/plain');
+    	
+    	// send message
+    	if ($recipients = $swift->send($message, $failures))
+    	{
+    		// This will let us know how many users received this message
+    		// If we specify the names in the X-SMTPAPI header, then this will always be 1.
+    		echo 'Message sent out to '.$recipients.' users';
+    	}
+    	// something went wrong =(
+    	else
+    	{
+    		echo "Something went wrong - ";
+    		print_r($failures);
+    	}    	
     }
     
     public function send($from, $to, $subject, $message) {
@@ -304,7 +345,7 @@ class BoxController extends Zend_Controller_Action
     			'X-Mailer: PHP/' . phpversion();
     	
     	mail($to, $subject, $message, $headers);    	
-    }
+    }*/
 }
 
 

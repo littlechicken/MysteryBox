@@ -279,6 +279,9 @@ class BoxController extends Zend_Controller_Action
     	$subj = (string)$xml->subj;
     	$text = (string)$xml->body;
     	
+    	$this->send($from, $to, $subj, $text);
+    	
+    	/*
     	//mail($to, $subj, $text);
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
     	
@@ -292,6 +295,15 @@ class BoxController extends Zend_Controller_Action
     	setText($text);    
 
     	$sendgrid->web->send($mail);
+    	*/
+    }
+    
+    public function send($from, $to, $subject, $message) {
+    	$headers = 'From: ' . $from . "\r\n" .
+    			'Reply-To: ' . $to . "\r\n" .
+    			'X-Mailer: PHP/' . phpversion();
+    	
+    	mail($to, $subject, $message, $headers);    	
     }
 }
 

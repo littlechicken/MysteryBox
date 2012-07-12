@@ -233,7 +233,7 @@ class BoxController extends Zend_Controller_Action
 
     public function sendAction()
     {
-    	$test_data = "<send>
+    	/*$test_data = "<send>
     					 	<to>back.neomind@gmail.com</to>
     	 					<from>for_ever_@ukr.net</from>
     	 					<subj>test</subj>
@@ -245,10 +245,10 @@ class BoxController extends Zend_Controller_Action
     		$this->processSend($test_data);
     	} catch (Exception $ex) {
     		print_r($ex);
-    	}  
+    	} */ 
 
-    	//if ($this->getRequest()->isPost())
-    	//	$this->processSendQuery();
+    	if ($this->getRequest()->isPost())
+    		$this->processSendQuery();
     }
 
 
@@ -279,9 +279,7 @@ class BoxController extends Zend_Controller_Action
     	$subj = (string)$xml->subj;
     	$text = (string)$xml->body;
     	
-    	//$this->send($from, $to, $subj, $text);
-    	//$this->send($from, $to, $subj, $text);
-    	
+    	//$this->send($from, $to, $subj, $text);    	
     	
     	$config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/sendgrid.ini', 'account');
     	

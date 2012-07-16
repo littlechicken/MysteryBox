@@ -11,9 +11,9 @@ class BoxController extends Zend_Controller_Action
 
     public function processFiles()
     {
-    	$data = file_get_contents('php://input');
-    	$this->processData($data);
-   		/*$apt    = new Zend_File_Transfer_Adapter_Http();
+    	//$data = file_get_contents('php://input');
+    	//$this->processData($data);
+   		$apt    = new Zend_File_Transfer_Adapter_Http();
    		$files  = $apt->getFileInfo();
    		foreach($files as $file => $fileInfo) {
    			if ($apt->isUploaded($file)) {
@@ -26,7 +26,7 @@ class BoxController extends Zend_Controller_Action
    					}
    				}
    			}
-   		}*/
+   		}
     }
 
     public function processData($data)

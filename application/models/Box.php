@@ -27,7 +27,7 @@ class Application_Model_Box
     	$this->_riddleAnswer = (string)$xml->riddleAnswer;
     	$this->_unlockDate = (string)$xml->unlockDate;
     	$this->_fileName = (string)$xml->file->attributes()->name;
-    	$this->_amazonFileName = uniqid("", true) . $this->getExtenstion();
+    	$this->_amazonFileName = uniqid("", true) . $this->getExtension();
     	$this->_fileContent = (string)$xml->file;
     }
         

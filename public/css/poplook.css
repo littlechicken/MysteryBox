@@ -1,0 +1,84 @@
+<style type="text/css">
+<!-- keep empty-line or will not work -->
+:empty-line {}
+
+@font-face {
+    font-family: "Amienne";
+    src: url("../fonts/AmienneRegular.ttf")
+}
+@font-face {
+    font-family: "MonotypeCoursiva";
+    src: url("../fonts/MonotypeCoursiva.ttf")
+}
+
+body
+{
+	background-image: url(../images/background.png);
+	background-repeat: repeat-x;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-color: #d4a072;
+	text-align: center;
+	font-family: "Amienne";
+    font-size: 2.4em;
+    color: #352b22;
+
+}
+#question-form
+{
+	background-image: url(../images/question-answer.png);
+	background-repeat: no-repeat;
+}
+#question-text
+{
+    font-family: "MonotypeCoursiva";
+	font-size: 3em;
+	color: #7b6950;
+}
+#postcard
+{
+	background-image: url(../images/postcard.png);
+	font-size: 2.4em;
+}
+.input-field
+{
+	font-family: "Amienne";
+    font-size: 2.5em;
+    color: #352b22;
+    width:320px;
+    height:36px;
+	background-image:url(../images/input.png);
+	background-color:transparent;
+	padding-left:10px;
+	vertical-align: middle;
+	outline:none;
+	border: 0;
+}
+.input-button
+{
+	background-image:url(../images/button-done.png);
+    background-repeat:no-repeat;
+    width:69px;
+    height:30px;
+    border:none;
+    background-color:transparent;
+}
+.close-button
+{
+	background-image:url(../images/button.png);
+    width:280px;
+    height:111px;
+    border:none;
+    background-color:transparent;
+    position:fixed;padding-left:50px;top:0;
+}
+.footer
+{
+	position: fixed;
+	bottom: 0;
+	padding-left: 42.9%;
+	padding-right: 42.9%;
+}
+</style>

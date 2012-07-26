@@ -7,5 +7,3 @@ RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]
 
 Options FollowSymLinks
-
-Access-Control-Allow-Origin: *

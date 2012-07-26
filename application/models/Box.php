@@ -27,10 +27,16 @@ class Application_Model_Box
     	$this->_riddleAnswer = (string)$xml->riddleAnswer;
     	$this->_unlockDate = (string)$xml->unlockDate;
     	$this->_fileName = (string)$xml->file->attributes()->name;
-    	$this->_amazonFileName = uniqid("", true);
+    	$this->_amazonFileName = uniqid("", true) + $this->getExtenstion();
     	$this->_fileContent = (string)$xml->file;
     }
         
+    public function getExtension() {
+    	$fn = $this->_fileName;
+    	$ext = substr($fn, strrpos($fn, '.'));
+    	return $ext;
+    }
+    
     public function __construct(array $options = null)
     {
         if (is_array($options)) {

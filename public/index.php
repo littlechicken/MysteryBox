@@ -34,6 +34,8 @@ require_once 'Facebook/facebook.php';
 
 require_once 'Mail/SendGrid_loader.php';
 
+header('Access-Control-Allow-Origin: *');
+
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,

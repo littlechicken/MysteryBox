@@ -130,7 +130,7 @@
 				<td align="center">
 				
 					<form action="" method="post">
-						<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field"/>
+						<input type="text" name="name" id="name" placeholder="Your answer" value=""  class="input-field" />
 						<button type="submit" id="submit" class="input-button"></button>
 						<center><span id="error" style="display: none; color: red; font-size: 1.6em;">Nope... try again</span></center>
 					</form>
@@ -313,7 +313,10 @@
 			
 			<?php }?>
 			
-			<p style="text-align: center"><?php echo $this->entry->messageBody ?></p>
+			<p style="margin:0px; vertical-align:text-top;text-align: center"><?php echo $this->entry->messageBody ?>
+				<!-- input id="close" type="button" class="close-button" value=""/-->
+				<img id="close" style="position:fixed;padding-left:50px;top:0;" src="../../images/button.png" />
+			</p>
 		</td>
 	    <td width="190"><img src="../../images/right_side.png" width="190" height="480" style="vertical-align:text-top;"/>
 		</td>
@@ -322,9 +325,11 @@
 	    <td colspan="3"><img src="../../images/bottom.png" width="1020" height="97" /></td>
 	  </tr>
 	</table>
-	<center>
-		<input id="close" type="button" class="close-button" value=""/>
-	</center>
+
+	<a style="text-align:center" href="http://store.apple.com/popthelid/download"><img src="../../images/link.png"></a>		
+	<div style="color:#330000; font-size:0.3em;font-family:arial;text-align:center">
+	&nbsp;&nbsp;&nbsp<span>2012 M.J. Sala Holding Amsterdam BV</span><span style="color:#ffffff">&nbsp;&nbsp|&nbsp;&nbsp</span><a href="" style="color:#330000;">Terms and conditions</a>
+
 		<script>
 		$("#close").click(function() {
 			$("#view").hide();

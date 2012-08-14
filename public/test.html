@@ -1,12 +1,16 @@
-<html>
-<body>
-<EMBED src="boxopen.wav"
-       autostart = false
-       controls  = console
-       hidden    = false
-       volume    = 75
-       width     = 145
-       height    = 25
-       loop      = true>
-</body>
-</html>
+    <html>
+    <head>
+    <title>Testing buttons</title>
+    <script language="javascript" type="text/javascript">
+    function playSound(soundfile) {
+    document.getElementById("dummy").innerHTML=document.getElementById("dummy").innerHTML +
+    "<embed src=\""+soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
+    }
+    </script>
+    </head>
+    <body>
+    <a href="link.html" id="dummy">
+    <img src="enter.jpg" onclick="playSound('boxopen.wav');">
+    </a>
+    </body>
+    </html>

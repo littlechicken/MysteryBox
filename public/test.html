@@ -1,16 +1,16 @@
-    <html>
-    <head>
-    <title>Testing buttons</title>
-    <script language="javascript" type="text/javascript">
-    function playSound(soundfile) {
-    document.getElementById("dummy").innerHTML=document.getElementById("dummy").innerHTML +
+<HTML>
+<head>
+
+<title>Example of How to Play a Sound on Click or on MouseOver</title>
+
+<script language="javascript" type="text/javascript">
+function playSound(soundfile) {
+  document.getElementById("dummy").innerHTML=
     "<embed src=\""+soundfile+"\" hidden=\"true\" autostart=\"true\" loop=\"false\" />";
-    }
-    </script>
-    </head>
-    <body>
-    <a href="link.html" id="dummy">
-    <img src="enter.jpg" onclick="playSound('boxopen.wav');">
-    </a>
-    </body>
-    </html>
+}
+</script>
+
+<body>
+<span id="dummy"></span>
+<p><a href="#" onclick="playSound('boxopen.wav');">Click here to hear a bird sing</a></p>
+</body></html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--
+1. Class .video-rotate is used when we need to turn the video in order to fix it.
+2. In all other cases we use .video-original. See below for more details.
+-->
+<style>
+.video-rotated
+{
+  -moz-transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+  -o-transform:rotate(90deg);
+  -ms-transform:rotate(90deg);
+  transform:rotate(90deg);
+}
+.video-original
+{
+}
+</style>
+<!--
+The next script detects the browser, we gonna need this to fix the video rotation.
+The problem occurs only in non-Apple-Safari browsers. With every video upload I am going to
+send you a signal if video is portrait or landscape.
+The logic is then as follows:
+If we are recieving a signal from the app that the video is landscape then we - do nothing
+Else if we are recieving a signal from the app that the video is portrait and the browser is not Safari we:
+	1. Rotate the div enclosing the image
+	2. Use vertical play-button image
+	3. Fix the style to position the div correctly (not included in this demo you have to figure out it yourself)
+-->
+<script type="text/javascript">
+var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
+					return data[i].identity;
+			}
+			else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) return;
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: "Chrome",
+			identity: "Chrome"
+		},
+		{ 	string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari",
+			versionSearch: "Version"
+		},
+		{
+			prop: window.opera,
+			identity: "Opera",
+			versionSearch: "Version"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab"
+		},
+		{
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino"
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv"
+		},
+		{ 		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			   string: navigator.userAgent,
+			   subString: "iPhone",
+			   identity: "iPhone/iPod"
+	    },
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+};
+BrowserDetect.init();
+</script>
+<!--
+The next function recieves two values and based on the criteria described above selects the 'right' one.
+This concerns: rotation div, play image, possibly styles, sizes etc.
+-->
+<script type="text/javascript">
+function getRightValue(original, modified, orientation)
+{
+	if (orientation == "landscape") {
+		return original;
+	}
+	else {
+		if (BrowserDetect.browser == "Safari") {
+			return original;
+		} else {
+			return modified;
+		}
+	}	
+}
+</script>
+</head>
+<body
+	<div>
+		<!-- Use this next one to fix layout, like margin, positioning etc.-->
+		<!-- PHP WRITE BELOW landscape or portrait-->
+		<script type="text/javascript">
+			document.write('<div style="' + getRightValue("", "margin-top: 400px", "portrait") + '">');
+		</script>
+		<!-- Use this one to apply video rotation -->
+		<!-- PHP WRITE BELOW landscape or portrait-->
+		<script type="text/javascript">
+			document.write('<div class="' + getRightValue("video-original", "video-rotated", "portrait") + '">');
+		</script>
+		<!-- Use this one to fix playbutton rotation after we 'fixed' the video -->
+		<!-- PHP WRITE BELOW landscape or portrait-->
+		<script type="text/javascript">
+			document.write('<img src="' + getRightValue("play-horizontal.png", "play-vertical.png", "portrait") + '" ' + getRightValue("width=\"540\" height=\"400\" />", "width=\"400\" height=\"540\" />", "portrait"));
+		</script>
+		<video class="sublime" width="640" height="360" poster="video-poster.jpg" preload="none">
+		  <source src="http://popthelid.com/test/test.mov" />
+		</video>
+		<!-- 
+			Here you place Sublime video player. Use the playbutton above to initiate the play.
+			More about how to define SublimePlayer: http://docs.sublimevideo.net/quickstart-guide
+			More about customization of start button: http://docs.sublimevideo.net/custom-play-button
+		-->
+				<video poster="">
+					<source src="" />
+				</video>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
